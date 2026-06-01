@@ -1,14 +1,30 @@
 <%- include('partials/header') %>
 <section class="hero">
-  <h1>Do campo direto pra sua mesa</h1>
-  <p>Conectamos produtores da agricultura familiar a quem quer comprar alimentos frescos, sem intermediarios.</p>
+  <div class="hero__eyebrow">Venda direta da agricultura familiar</div>
+  <h1>Compre direto de produtores da sua região</h1>
+  <p>Encontre alimentos frescos, fortaleça pequenos produtores e acompanhe tudo em uma plataforma simples.</p>
   <% if (!usuario) { %>
     <div class="acoes">
-      <a class="botao" href="/cadastro">Criar conta</a>
-      <a class="botao secundario" href="/login">Entrar</a>
+      <a class="botao" href="/cadastro">Criar conta grátis</a>
+      <a class="botao secundario" href="/login">Já tenho conta</a>
     </div>
   <% } else { %>
     <a class="botao" href="/dashboard">Ir para o painel</a>
   <% } %>
+</section>
+
+<section class="trust-strip" aria-label="Benefícios da plataforma">
+  <div>
+    <strong>Produtores locais</strong>
+    <span>Mais autonomia para vender sem intermediários.</span>
+  </div>
+  <div>
+    <strong>Alimentos frescos</strong>
+    <span>Conexão direta entre quem planta e quem compra.</span>
+  </div>
+  <div>
+    <strong>Pedidos claros</strong>
+    <span>Base pronta para acompanhar compras e vendas.</span>
+  </div>
 </section>
 <%- include('partials/footer') %>

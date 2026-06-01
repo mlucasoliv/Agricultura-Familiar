@@ -1,25 +1,27 @@
 <%- include('partials/header') %>
 <section class="form-card">
+  <p class="form-kicker">Comece em poucos minutos</p>
   <h1>Criar conta</h1>
-  <% if (erro) { %><p class="erro"><%= erro %></p><% } %>
+  <p class="form-intro">Escolha como quer participar da AgroFamília. Você poderá acessar seu painel logo após o cadastro.</p>
+  <% if (erro) { %><p class="erro" role="alert"><%= erro %></p><% } %>
   <form action="/cadastro" method="POST">
     <label>Nome
-      <input type="text" name="nome" value="<%= dados.nome || '' %>" required />
+      <input type="text" name="nome" value="<%= dados.nome || '' %>" autocomplete="name" required />
     </label>
     <label>E-mail
-      <input type="email" name="email" value="<%= dados.email || '' %>" required />
+      <input type="email" name="email" value="<%= dados.email || '' %>" autocomplete="email" required />
     </label>
     <label>Senha
-      <input type="password" name="senha" minlength="6" required />
+      <input type="password" name="senha" minlength="6" autocomplete="new-password" required />
     </label>
-    <label>Eu sou
+    <label>Como você quer usar a plataforma?
       <select name="tipo">
-        <option value="consumidor" <%= dados.tipo === 'consumidor' ? 'selected' : '' %>>Consumidor</option>
-        <option value="produtor" <%= dados.tipo === 'produtor' ? 'selected' : '' %>>Produtor</option>
+        <option value="consumidor" <%= dados.tipo === 'consumidor' ? 'selected' : '' %>>Consumidor - quero comprar alimentos</option>
+        <option value="produtor" <%= dados.tipo === 'produtor' ? 'selected' : '' %>>Produtor - quero vender meus produtos</option>
       </select>
     </label>
-    <button type="submit" class="botao">Cadastrar</button>
+    <button type="submit" class="botao">Criar minha conta</button>
   </form>
-  <p class="alt">Ja tem conta? <a href="/login">Entrar</a></p>
+  <p class="alt">Já tem conta? <a href="/login">Entrar</a></p>
 </section>
 <%- include('partials/footer') %>

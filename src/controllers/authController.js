@@ -10,6 +10,9 @@ const cookieOptions = {
 };
 
 exports.mostrarCadastro = (req, res) => {
+  if (req.usuario) {
+    return res.redirect('/dashboard');
+  }
   res.render('cadastro', {
     title: 'Cadastro',
     activePage: 'cadastro',
@@ -35,6 +38,9 @@ exports.cadastrar = async (req, res) => {
 };
 
 exports.mostrarLogin = (req, res) => {
+  if (req.usuario) {
+    return res.redirect('/dashboard');
+  }
   res.render('login', {
     title: 'Entrar',
     activePage: 'login',
@@ -51,7 +57,7 @@ exports.login = async (req, res) => {
       return res.status(401).render('login', {
         title: 'Entrar',
         activePage: 'login',
-        erro: 'E-mail ou senha invalidos.',
+        erro: 'E-mail ou senha inválidos. Confira os dados e tente novamente.',
         dados: { email },
       });
     }
@@ -78,5 +84,5 @@ function traduzErro(err) {
   if (err.errors && err.errors.length) {
     return err.errors[0].message;
   }
-  return 'Nao foi possivel concluir o cadastro.';
+  return 'Não foi possível concluir o cadastro.';
 }
