@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { protegerRota } = require('../middleware/auth');
 
-// Pagina inicial publica.
+// Rota de teste do layout base.
 router.get('/', (req, res) => {
-  res.render('index');
+  res.render('pages/dashboard', { title: 'Início', body: '' });
 });
 
 // Pagina privada — so acessivel com login (rota protegida pelo middleware).
