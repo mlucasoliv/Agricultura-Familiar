@@ -1,0 +1,11 @@
+<%- include('partials/header') %>
+<section class="painel">
+  <h1>Painel</h1>
+  <p>Bem-vindo(a), <strong><%= usuario.nome %></strong>!</p>
+  <ul class="dados">
+    <li><strong>E-mail:</strong> <%= usuario.email %></li>
+    <li><strong>Tipo de conta:</strong> <%= usuario.tipo %></li>
+  </ul>
+  <p class="aviso">Esta e uma rota protegida: so e possivel visualiza-la autenticado.</p>
+</section>
+<%- include('partials/footer') %>
