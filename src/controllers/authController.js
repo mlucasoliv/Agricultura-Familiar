@@ -10,7 +10,12 @@ const cookieOptions = {
 };
 
 exports.mostrarCadastro = (req, res) => {
-  res.render('cadastro', { erro: null, dados: {} });
+  res.render('cadastro', {
+    title: 'Cadastro',
+    activePage: 'cadastro',
+    erro: null,
+    dados: {},
+  });
 };
 
 exports.cadastrar = async (req, res) => {
@@ -21,6 +26,8 @@ exports.cadastrar = async (req, res) => {
     res.redirect('/dashboard');
   } catch (err) {
     res.status(400).render('cadastro', {
+      title: 'Cadastro',
+      activePage: 'cadastro',
       erro: traduzErro(err),
       dados: { nome, email, tipo },
     });
@@ -28,7 +35,12 @@ exports.cadastrar = async (req, res) => {
 };
 
 exports.mostrarLogin = (req, res) => {
-  res.render('login', { erro: null, dados: {} });
+  res.render('login', {
+    title: 'Entrar',
+    activePage: 'login',
+    erro: null,
+    dados: {},
+  });
 };
 
 exports.login = async (req, res) => {
@@ -37,6 +49,8 @@ exports.login = async (req, res) => {
     const usuario = await Usuario.findOne({ where: { email } });
     if (!usuario || !(await usuario.validarSenha(senha))) {
       return res.status(401).render('login', {
+        title: 'Entrar',
+        activePage: 'login',
         erro: 'E-mail ou senha invalidos.',
         dados: { email },
       });
@@ -45,6 +59,8 @@ exports.login = async (req, res) => {
     res.redirect('/dashboard');
   } catch (err) {
     res.status(500).render('login', {
+      title: 'Entrar',
+      activePage: 'login',
       erro: 'Erro ao entrar. Tente novamente.',
       dados: { email },
     });

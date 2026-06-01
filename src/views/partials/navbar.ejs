@@ -1,0 +1,51 @@
+<%
+  const currentPage = typeof activePage !== 'undefined' ? activePage : '';
+  const loggedUser = typeof usuario !== 'undefined' ? usuario : null;
+%>
+
+<nav class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #2d6a4f;">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-semibold" href="/">🌱 AgroFamília</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarAgroFamilia"
+      aria-controls="navbarAgroFamilia"
+      aria-expanded="false"
+      aria-label="Alternar navegação"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarAgroFamilia">
+      <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link <%= currentPage === 'inicio' ? 'active' : '' %>" href="/">Início</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= currentPage === 'produtos' ? 'active' : '' %>" href="/produtos">Produtos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= currentPage === 'pedidos' ? 'active' : '' %>" href="/pedidos">Pedidos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= currentPage === 'dashboard' ? 'active' : '' %>" href="/dashboard">Dashboard</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-md-center gap-2 ms-md-3 mt-3 mt-md-0">
+        <% if (loggedUser) { %>
+          <span class="navbar-text">Bem-vindo, <%= loggedUser.nome %></span>
+          <form action="/logout" method="POST" class="m-0">
+            <button class="btn btn-outline-light btn-sm" type="submit">Sair</button>
+          </form>
+        <% } else { %>
+          <a class="btn btn-outline-light btn-sm <%= currentPage === 'login' ? 'active' : '' %>" href="/login">Entrar</a>
+          <a class="btn btn-light btn-sm <%= currentPage === 'cadastro' ? 'active' : '' %>" href="/cadastro">Cadastro</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
