@@ -1,0 +1,62 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #1f2a24;
+  background: #f4f7f2;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: #2e7d32;
+  color: #fff;
+}
+.topo a { color: #fff; text-decoration: none; }
+.logo { font-weight: 700; font-size: 1.15rem; }
+.topo nav { display: flex; align-items: center; gap: 1rem; }
+.ola { opacity: .9; font-size: .9rem; }
+.inline { display: inline; }
+.link {
+  background: none; border: none; color: #fff; cursor: pointer;
+  font: inherit; text-decoration: underline; padding: 0;
+}
+
+.conteudo { flex: 1; width: 100%; max-width: 880px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+.hero { text-align: center; padding: 3rem 1rem; }
+.hero h1 { font-size: 2rem; margin-bottom: .75rem; color: #1b5e20; }
+.hero p { color: #4b5a52; max-width: 520px; margin: 0 auto 1.5rem; }
+.acoes { display: flex; gap: .75rem; justify-content: center; }
+
+.botao {
+  display: inline-block; background: #2e7d32; color: #fff; text-decoration: none;
+  padding: .65rem 1.2rem; border-radius: 8px; border: none; cursor: pointer; font: inherit;
+}
+.botao:hover { background: #1b5e20; }
+.botao.secundario { background: #fff; color: #2e7d32; border: 1px solid #2e7d32; }
+
+.form-card, .painel {
+  background: #fff; border-radius: 12px; padding: 2rem;
+  max-width: 420px; margin: 1rem auto; box-shadow: 0 4px 16px rgba(0,0,0,.06);
+}
+.painel { max-width: 520px; }
+.form-card h1, .painel h1 { margin-bottom: 1rem; color: #1b5e20; }
+
+form { display: flex; flex-direction: column; gap: 1rem; }
+label { display: flex; flex-direction: column; gap: .35rem; font-size: .9rem; font-weight: 600; }
+input, select { padding: .6rem; border: 1px solid #cdd6cf; border-radius: 8px; font: inherit; }
+
+.erro {
+  background: #fdecea; color: #b71c1c; padding: .6rem .8rem;
+  border-radius: 8px; margin-bottom: 1rem; font-size: .9rem;
+}
+.alt { margin-top: 1rem; font-size: .9rem; }
+.dados { list-style: none; margin: 1rem 0; display: flex; flex-direction: column; gap: .5rem; }
+.aviso { font-size: .85rem; color: #4b5a52; margin-top: 1rem; }
+.rodape { text-align: center; padding: 1rem; color: #6b7a72; }
