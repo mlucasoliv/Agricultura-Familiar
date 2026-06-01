@@ -1,0 +1,24 @@
+# Dependencias
+node_modules/
+
+# Variaveis de ambiente (NUNCA commitar credenciais/segredos)
+.env
+.env.local
+
+# Banco de dados local (SQLite)
+*.sqlite
+*.sqlite3
+database.sqlite
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
