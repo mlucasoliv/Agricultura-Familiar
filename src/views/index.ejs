@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+<section class="hero">
+  <h1>Do campo direto pra sua mesa</h1>
+  <p>Conectamos produtores da agricultura familiar a quem quer comprar alimentos frescos, sem intermediarios.</p>
+  <% if (!usuario) { %>
+    <div class="acoes">
+      <a class="botao" href="/cadastro">Criar conta</a>
+      <a class="botao secundario" href="/login">Entrar</a>
+    </div>
+  <% } else { %>
+    <a class="botao" href="/dashboard">Ir para o painel</a>
+  <% } %>
+</section>
+<%- include('partials/footer') %>

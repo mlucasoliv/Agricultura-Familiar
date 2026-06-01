@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+<section class="form-card">
+  <h1>Criar conta</h1>
+  <% if (erro) { %><p class="erro"><%= erro %></p><% } %>
+  <form action="/cadastro" method="POST">
+    <label>Nome
+      <input type="text" name="nome" value="<%= dados.nome || '' %>" required />
+    </label>
+    <label>E-mail
+      <input type="email" name="email" value="<%= dados.email || '' %>" required />
+    </label>
+    <label>Senha
+      <input type="password" name="senha" minlength="6" required />
+    </label>
+    <label>Eu sou
+      <select name="tipo">
+        <option value="consumidor" <%= dados.tipo === 'consumidor' ? 'selected' : '' %>>Consumidor</option>
+        <option value="produtor" <%= dados.tipo === 'produtor' ? 'selected' : '' %>>Produtor</option>
+      </select>
+    </label>
+    <button type="submit" class="botao">Cadastrar</button>
+  </form>
+  <p class="alt">Ja tem conta? <a href="/login">Entrar</a></p>
+</section>
+<%- include('partials/footer') %>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agricultura Familiar</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="topo">
+    <a href="/" class="logo">Agricultura Familiar</a>
+    <nav>
+      <% if (usuario) { %>
+        <span class="ola">Ola, <%= usuario.nome %></span>
+        <a href="/dashboard">Painel</a>
+        <form action="/logout" method="POST" class="inline">
+          <button type="submit" class="link">Sair</button>
+        </form>
+      <% } else { %>
+        <a href="/login">Entrar</a>
+        <a href="/cadastro">Cadastrar</a>
+      <% } %>
+    </nav>
+  </header>
+  <main class="conteudo">
