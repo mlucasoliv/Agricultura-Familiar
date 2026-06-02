@@ -6,6 +6,9 @@
     <li><strong>E-mail:</strong> <%= usuario.email %></li>
     <li><strong>Tipo de conta:</strong> <%= usuario.tipo %></li>
   </ul>
+  <% if (usuario.tipo === 'produtor') { %>
+    <p><a class="botao" href="/produtos/meus">Gerenciar meus produtos</a></p>
+  <% } %>
   <p class="aviso">Esta e uma rota protegida: so e possivel visualiza-la autenticado.</p>
 </section>
 <%- include('partials/footer') %>

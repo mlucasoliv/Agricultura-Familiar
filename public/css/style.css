@@ -60,3 +60,24 @@ input, select { padding: .6rem; border: 1px solid #cdd6cf; border-radius: 8px; f
 .dados { list-style: none; margin: 1rem 0; display: flex; flex-direction: column; gap: .5rem; }
 .aviso { font-size: .85rem; color: #4b5a52; margin-top: 1rem; }
 .rodape { text-align: center; padding: 1rem; color: #6b7a72; }
+
+/* Produtos */
+.produtos-topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+.produtos-topo h1 { color: #1b5e20; }
+.cards { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.card { background: #fff; border-radius: 12px; padding: 1.25rem; box-shadow: 0 4px 16px rgba(0,0,0,.06); position: relative; }
+.card.indisponivel { opacity: .6; }
+.card h2 { font-size: 1.1rem; color: #1b5e20; margin-bottom: .35rem; }
+.card .preco { font-weight: 700; }
+.card .desc { font-size: .9rem; color: #4b5a52; margin: .4rem 0; }
+.card .produtor { font-size: .8rem; color: #6b7a72; }
+.tag { position: absolute; top: .75rem; right: .75rem; background: #fdecea; color: #b71c1c; font-size: .7rem; padding: .15rem .5rem; border-radius: 6px; }
+
+.tabela { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+.tabela th, .tabela td { text-align: left; padding: .75rem 1rem; border-bottom: 1px solid #eef2ee; }
+.tabela th { background: #f0f5ef; color: #1b5e20; font-size: .85rem; }
+.acoes-tabela { display: flex; gap: .75rem; align-items: center; }
+.link.perigo { color: #b71c1c; }
+.check { flex-direction: row; align-items: center; gap: .5rem; font-weight: 600; }
+.check input { width: auto; }
+textarea { padding: .6rem; border: 1px solid #cdd6cf; border-radius: 8px; font: inherit; resize: vertical; }
