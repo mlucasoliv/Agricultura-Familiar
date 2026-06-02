@@ -14,6 +14,15 @@ exports.listar = async (req, res) => {
   res.render('produtos/lista', { produtos, busca });
 };
 
+// Pagina publica com os detalhes de um produto.
+exports.detalhe = async (req, res) => {
+  const produto = await Produto.findByPk(req.params.id, {
+    include: [{ model: Usuario, as: 'dono', attributes: ['nome'] }],
+  });
+  if (!produto) return res.status(404).render('404');
+  res.render('produtos/detalhe', { produto });
+};
+
 // Formulario de novo produto.
 exports.mostrarNovo = (req, res) => {
   res.render('produtos/form', {

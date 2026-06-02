@@ -21,7 +21,7 @@
     <ul class="cards">
       <% produtos.forEach(function (p) { %>
         <li class="card<%= p.disponivel ? '' : ' indisponivel' %>">
-          <h2><%= p.nome %></h2>
+          <h2><a href="/produtos/<%= p.id %>"><%= p.nome %></a></h2>
           <p class="preco">R$ <%= Number(p.preco).toFixed(2) %> / <%= p.unidade %></p>
           <% if (p.descricao) { %><p class="desc"><%= p.descricao %></p><% } %>
           <p class="produtor">Produtor: <%= p.dono ? p.dono.nome : 'Desconhecido' %></p>

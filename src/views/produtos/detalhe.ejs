@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+<section class="form-card">
+  <h1><%= produto.nome %></h1>
+  <% if (!produto.disponivel) { %>
+    <p class="erro">Produto indisponivel no momento.</p>
+  <% } %>
+  <p class="preco"><strong>R$ <%= Number(produto.preco).toFixed(2) %></strong> / <%= produto.unidade %></p>
+  <% if (produto.descricao) { %>
+    <p class="desc"><%= produto.descricao %></p>
+  <% } %>
+  <ul class="dados">
+    <li><strong>Produtor:</strong> <%= produto.dono ? produto.dono.nome : 'Desconhecido' %></li>
+    <li><strong>Status:</strong> <%= produto.disponivel ? 'Disponivel' : 'Indisponivel' %></li>
+  </ul>
+  <p class="alt"><a href="/produtos">&larr; Voltar aos produtos</a></p>
+</section>
+<%- include('../partials/footer') %>

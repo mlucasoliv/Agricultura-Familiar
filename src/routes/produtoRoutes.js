@@ -11,6 +11,10 @@ router.get('/meus', protegerRota, produtos.meusProdutos);
 router.get('/novo', protegerRota, produtos.mostrarNovo);
 router.post('/', protegerRota, produtos.criar);
 router.get('/:id/editar', protegerRota, produtos.mostrarEditar);
+
+// Detalhe publico de um produto (rota com :id vem depois das rotas fixas).
+router.get('/:id', produtos.detalhe);
+
 router.post('/:id', protegerRota, produtos.atualizar);
 router.post('/:id/excluir', protegerRota, produtos.remover);
 
