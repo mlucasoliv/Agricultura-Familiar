@@ -81,3 +81,5 @@ input, select { padding: .6rem; border: 1px solid #cdd6cf; border-radius: 8px; f
 .check { flex-direction: row; align-items: center; gap: .5rem; font-weight: 600; }
 .check input { width: auto; }
 textarea { padding: .6rem; border: 1px solid #cdd6cf; border-radius: 8px; font: inherit; resize: vertical; }
+.busca { flex-direction: row; align-items: center; gap: .5rem; margin-bottom: 1.25rem; }
+.busca input { flex: 1; }
