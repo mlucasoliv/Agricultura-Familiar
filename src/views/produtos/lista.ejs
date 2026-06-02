@@ -7,8 +7,16 @@
     <% } %>
   </div>
 
+  <form class="busca" action="/produtos" method="GET">
+    <input type="search" name="q" placeholder="Buscar por nome..." value="<%= busca %>" />
+    <button type="submit" class="botao secundario">Buscar</button>
+    <% if (busca) { %><a class="alt" href="/produtos">Limpar</a><% } %>
+  </form>
+
   <% if (produtos.length === 0) { %>
-    <p class="aviso">Nenhum produto cadastrado ainda.</p>
+    <p class="aviso">
+      <% if (busca) { %>Nenhum produto encontrado para "<%= busca %>".<% } else { %>Nenhum produto cadastrado ainda.<% } %>
+    </p>
   <% } else { %>
     <ul class="cards">
       <% produtos.forEach(function (p) { %>

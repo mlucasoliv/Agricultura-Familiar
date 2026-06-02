@@ -1,12 +1,17 @@
+const { Op } = require('sequelize');
 const { Produto, Usuario } = require('../models');
 
-// Lista publica de todos os produtos disponiveis, com o nome do produtor.
+// Lista publica de produtos, com o nome do produtor.
+// Aceita busca por nome via query string (?q=...).
 exports.listar = async (req, res) => {
+  const busca = (req.query.q || '').trim();
+  const where = busca ? { nome: { [Op.like]: `%${busca}%` } } : {};
   const produtos = await Produto.findAll({
+    where,
     include: [{ model: Usuario, as: 'dono', attributes: ['nome'] }],
     order: [['createdAt', 'DESC']],
   });
-  res.render('produtos/lista', { produtos });
+  res.render('produtos/lista', { produtos, busca });
 };
 
 // Formulario de novo produto.
