@@ -1,28 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
   const menu = document.getElementById('navbarAgroFamilia');
   const toggler = document.querySelector('.navbar-toggler');
+  const btnSidebarToggle = document.getElementById('btn-sidebar-toggle');
+  const sidebar = document.getElementById('sidebar');
 
-  if (!menu || !toggler || !window.bootstrap) {
-    return;
+  if (menu && toggler && window.bootstrap) {
+    const collapse = window.bootstrap.Collapse.getOrCreateInstance(menu, {
+      toggle: false,
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (window.getComputedStyle(toggler).display !== 'none') {
+          collapse.hide();
+        }
+      });
+    });
+
+    menu.addEventListener('shown.bs.collapse', () => {
+      document.body.classList.add('menu-open');
+    });
+
+    menu.addEventListener('hidden.bs.collapse', () => {
+      document.body.classList.remove('menu-open');
+    });
   }
 
-  const collapse = window.bootstrap.Collapse.getOrCreateInstance(menu, {
-    toggle: false,
-  });
+  if (btnSidebarToggle && sidebar) {
+    btnSidebarToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      sidebar.classList.toggle('aberta');
+    });
 
-  menu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (window.getComputedStyle(toggler).display !== 'none') {
-        collapse.hide();
+    sidebar.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        sidebar.classList.remove('aberta');
       }
     });
-  });
 
-  menu.addEventListener('shown.bs.collapse', () => {
-    document.body.classList.add('menu-open');
-  });
-
-  menu.addEventListener('hidden.bs.collapse', () => {
-    document.body.classList.remove('menu-open');
-  });
+    document.addEventListener('click', (event) => {
+      if (!sidebar.contains(event.target) && !btnSidebarToggle.contains(event.target)) {
+        sidebar.classList.remove('aberta');
+      }
+    });
+  }
 });

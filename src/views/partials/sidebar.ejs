@@ -1,0 +1,40 @@
+<%
+  const currentPage = typeof activePage !== 'undefined' ? activePage : '';
+%>
+
+<aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+  <nav>
+    <ul class="sidebar-menu">
+      <li>
+        <a href="/dashboard" class="sidebar-link <%= currentPage === 'dashboard' ? 'active' : '' %>" <%= currentPage === 'dashboard' ? 'aria-current="page"' : '' %>>
+          <span class="sidebar-icon">🏠</span>
+          <span class="sidebar-label">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="/produtos" class="sidebar-link <%= currentPage === 'produtos' ? 'active' : '' %>" <%= currentPage === 'produtos' ? 'aria-current="page"' : '' %>>
+          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-label">Produtos</span>
+        </a>
+      </li>
+      <li>
+        <a href="/pedidos" class="sidebar-link <%= currentPage === 'pedidos' ? 'active' : '' %>" <%= currentPage === 'pedidos' ? 'aria-current="page"' : '' %>>
+          <span class="sidebar-icon">🛒</span>
+          <span class="sidebar-label">Pedidos</span>
+        </a>
+      </li>
+      <li>
+        <a href="/artigo" class="sidebar-link <%= currentPage === 'artigo' ? 'active' : '' %>" <%= currentPage === 'artigo' ? 'aria-current="page"' : '' %>>
+          <span class="sidebar-icon">📰</span>
+          <span class="sidebar-label">Artigos</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="sidebar-link disabled" aria-disabled="true" tabindex="-1">
+          <span class="sidebar-icon">👤</span>
+          <span class="sidebar-label">Meu perfil</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>
