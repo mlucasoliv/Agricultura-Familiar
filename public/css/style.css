@@ -1,4 +1,20 @@
 :root {
+  --cor-primaria: #2d6a4f;
+  --cor-primaria-escura: #1b4332;
+  --cor-secundaria: #52b788;
+  --cor-destaque: #e9c46a;
+  --cor-fundo: #f8f4e3;
+  --cor-fundo-card: #ffffff;
+  --cor-texto: #1b1b1b;
+  --cor-texto-suave: #555e52;
+  --cor-borda: #d4e6d0;
+  --cor-sucesso: #40916c;
+  --cor-alerta: #e9c46a;
+  --cor-perigo: #c1121f;
+  --largura-sidebar: 220px;
+  --altura-navbar: 60px;
+  --raio-borda: 8px;
+  --sombra-card: 0 2px 8px rgba(0, 0, 0, .08);
   --agro-green-900: #163f2b;
   --agro-green-800: #1f5f3b;
   --agro-green-700: #2d6a4f;
@@ -47,6 +63,142 @@ a {
 
 a:hover {
   color: var(--agro-green-900);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--cor-primaria-escura);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.card-resumo {
+  background: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--sombra-card);
+}
+
+.card-resumo .card-valor {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+}
+
+.card-resumo .card-label {
+  font-size: .85rem;
+  color: var(--cor-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.card-resumo .card-icone {
+  font-size: 2rem;
+  opacity: .6;
+}
+
+.badge-status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: .78rem;
+  font-weight: 500;
+}
+
+.badge-concluido {
+  background-color: #d8f3dc;
+  color: #1b4332;
+}
+
+.badge-pendente {
+  background-color: #fff3cd;
+  color: #7d4e00;
+}
+
+.badge-cancelado {
+  background-color: #fde8e8;
+  color: #7f1d1d;
+}
+
+.btn-agro {
+  background-color: var(--cor-primaria);
+  color: #fff;
+  border: none;
+  border-radius: var(--raio-borda);
+  padding: 8px 18px;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: background-color .2s ease, transform .18s ease;
+}
+
+.btn-agro:hover {
+  background-color: var(--cor-primaria-escura);
+  color: #fff;
+}
+
+.btn-agro:active {
+  transform: translateY(1px);
+}
+
+.btn-agro-outline {
+  background: transparent;
+  color: var(--cor-primaria);
+  border: 1.5px solid var(--cor-primaria);
+  border-radius: var(--raio-borda);
+  padding: 8px 18px;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, transform .18s ease;
+}
+
+.btn-agro-outline:hover {
+  background-color: var(--cor-primaria);
+  color: #fff;
+}
+
+.btn-agro-outline:active {
+  transform: translateY(1px);
+}
+
+.tabela-agro {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--cor-fundo-card);
+  border-radius: var(--raio-borda);
+  overflow: hidden;
+  box-shadow: var(--sombra-card);
+}
+
+.tabela-agro thead {
+  background-color: var(--cor-primaria);
+  color: #fff;
+}
+
+.tabela-agro th,
+.tabela-agro td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: .9rem;
+}
+
+.tabela-agro tbody tr:hover {
+  background-color: #f0faf4;
+}
+
+.secao-titulo {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding-bottom: .5rem;
+  border-bottom: 2px solid var(--cor-secundaria);
+  color: var(--cor-primaria-escura);
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .navbar-agro {
@@ -370,14 +522,14 @@ select:focus {
   display: flex;
   align-items: stretch;
   flex: 1;
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - var(--altura-navbar));
 }
 
 .sidebar {
-  width: 220px;
-  min-width: 220px;
+  width: var(--largura-sidebar);
+  min-width: var(--largura-sidebar);
   background:
-    linear-gradient(180deg, #1b4332 0%, #163f2b 100%);
+    linear-gradient(180deg, var(--cor-primaria-escura) 0%, #163f2b 100%);
   padding-top: 1rem;
   box-shadow: 12px 0 28px rgba(22, 63, 43, .12);
 }
@@ -401,12 +553,12 @@ select:focus {
 
 .sidebar-link:hover,
 .sidebar-link:focus-visible {
-  background-color: #2d6a4f;
+  background-color: var(--cor-primaria);
   color: #fff;
 }
 
 .sidebar-link.active {
-  background-color: #52b788;
+  background-color: var(--cor-secundaria);
   color: #fff;
   font-weight: 700;
 }
@@ -440,7 +592,7 @@ select:focus {
   .sidebar {
     position: fixed;
     top: 0;
-    left: -220px;
+    left: calc(var(--largura-sidebar) * -1);
     height: 100vh;
     z-index: 1100;
     transition: left .3s ease;
@@ -452,6 +604,16 @@ select:focus {
 
   .main-content {
     width: 100%;
+    padding: 1rem;
+  }
+
+  .card-resumo .card-valor {
+    font-size: 1.5rem;
+  }
+
+  .tabela-agro {
+    display: block;
+    overflow-x: auto;
   }
 
   .navbar-agro .navbar-collapse {
