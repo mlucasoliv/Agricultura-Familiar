@@ -1,6 +1,18 @@
 <%- include('partials/header') %>
 
-<h2 class="mb-4">Painel Geral</h2>
+<div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-4">
+  <div>
+    <p class="form-kicker">Área protegida</p>
+    <h2 class="mb-2">Painel Geral</h2>
+    <p class="text-muted mb-0">Olá, <strong><%= usuario.nome %></strong>. Acompanhe os principais números da AgroFamília.</p>
+  </div>
+
+  <% if (usuario.tipo === 'produtor') { %>
+    <div class="align-self-lg-end">
+      <a class="btn-agro" href="/produtos/meus">Gerenciar meus produtos</a>
+    </div>
+  <% } %>
+</div>
 
 <div class="row g-3 mb-4">
   <div class="col-12 col-sm-6 col-xl-3">

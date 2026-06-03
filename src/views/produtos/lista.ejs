@@ -1,0 +1,34 @@
+<%- include('../partials/header') %>
+<section class="produtos">
+  <div class="produtos-topo">
+    <h1>Produtos</h1>
+    <% if (usuario && usuario.tipo === 'produtor') { %>
+      <a class="botao" href="/produtos/novo">+ Novo produto</a>
+    <% } %>
+  </div>
+
+  <form class="busca" action="/produtos" method="GET">
+    <input type="search" name="q" placeholder="Buscar por nome..." value="<%= busca %>" />
+    <button type="submit" class="botao secundario">Buscar</button>
+    <% if (busca) { %><a class="alt" href="/produtos">Limpar</a><% } %>
+  </form>
+
+  <% if (produtos.length === 0) { %>
+    <p class="aviso">
+      <% if (busca) { %>Nenhum produto encontrado para "<%= busca %>".<% } else { %>Nenhum produto cadastrado ainda.<% } %>
+    </p>
+  <% } else { %>
+    <ul class="cards">
+      <% produtos.forEach(function (p) { %>
+        <li class="card<%= p.disponivel ? '' : ' indisponivel' %>">
+          <h2><a href="/produtos/<%= p.id %>"><%= p.nome %></a></h2>
+          <p class="preco">R$ <%= Number(p.preco).toFixed(2) %> / <%= p.unidade %></p>
+          <% if (p.descricao) { %><p class="desc"><%= p.descricao %></p><% } %>
+          <p class="produtor">Produtor: <%= p.dono ? p.dono.nome : 'Desconhecido' %></p>
+          <% if (!p.disponivel) { %><span class="tag">Indisponivel</span><% } %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+<%- include('../partials/footer') %>

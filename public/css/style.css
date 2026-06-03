@@ -664,3 +664,132 @@ select:focus {
     border-radius: 14px;
   }
 }
+
+/* Produtos */
+.produtos-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.produtos-topo h1 {
+  margin: 0;
+}
+
+.cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 0;
+}
+
+.card {
+  position: relative;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--radius-md);
+  background: var(--cor-fundo-card);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-card);
+}
+
+.card.indisponivel {
+  opacity: .6;
+}
+
+.card h2 {
+  margin-bottom: .35rem;
+  color: var(--cor-primaria-escura);
+  font-size: 1.1rem;
+}
+
+.card .preco {
+  color: var(--cor-primaria);
+  font-weight: 700;
+}
+
+.card .desc {
+  margin: .4rem 0;
+  color: var(--cor-texto-suave);
+  font-size: .9rem;
+}
+
+.card .produtor {
+  color: var(--agro-muted);
+  font-size: .8rem;
+}
+
+.tag {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  border-radius: 999px;
+  background: var(--agro-danger-bg);
+  color: var(--cor-perigo);
+  font-size: .7rem;
+  padding: .15rem .55rem;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--cor-fundo-card);
+  box-shadow: var(--shadow-card);
+}
+
+.tabela th,
+.tabela td {
+  text-align: left;
+  padding: .75rem 1rem;
+  border-bottom: 1px solid #eef2ee;
+}
+
+.tabela th {
+  background: #f0f5ef;
+  color: var(--cor-primaria-escura);
+  font-size: .85rem;
+}
+
+.acoes-tabela {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.link.perigo {
+  color: var(--cor-perigo);
+}
+
+.check {
+  flex-direction: row;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 600;
+}
+
+.check input {
+  width: auto;
+}
+
+textarea {
+  padding: .72rem .8rem;
+  border: 1px solid #cddbd0;
+  border-radius: 10px;
+  font: inherit;
+  resize: vertical;
+}
+
+.busca {
+  flex-direction: row;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1.25rem;
+}
+
+.busca input {
+  flex: 1;
+}
