@@ -13,6 +13,10 @@ router.get('/dashboard', protegerRota, (req, res) => {
     title: 'Dashboard',
     activePage: 'dashboard',
     usuario: req.usuario,
+    totalProdutores: 34,
+    totalProdutos: 128,
+    vendasMes: 'R$ 12.450,00',
+    pedidosPendentes: 7,
   });
 });
 

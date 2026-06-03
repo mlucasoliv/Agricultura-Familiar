@@ -1,26 +1,49 @@
 <%- include('partials/header') %>
-<%
-  const tipoConta = usuario.tipo === 'produtor' ? 'Produtor' : 'Consumidor';
-  const painelDescricao = usuario.tipo === 'produtor'
-    ? 'Aqui você poderá cadastrar seus produtos, acompanhar pedidos e gerenciar suas vendas.'
-    : 'Aqui você poderá acompanhar seus pedidos e encontrar produtos de produtores locais.';
-%>
-<section class="painel">
-  <p class="form-kicker">Área protegida</p>
-  <h1>Seu painel</h1>
-  <p>Olá, <strong><%= usuario.nome %></strong>. <%= painelDescricao %></p>
 
-  <ul class="dados">
-    <li>
-      <span>E-mail</span>
-      <strong><%= usuario.email %></strong>
-    </li>
-    <li>
-      <span>Tipo de conta</span>
-      <strong><%= tipoConta %></strong>
-    </li>
-  </ul>
+<h2 class="mb-4">Painel Geral</h2>
 
-  <p class="aviso">Novas áreas de produtos e pedidos serão conectadas ao seu painel nas próximas etapas.</p>
-</section>
+<div class="row g-3 mb-4">
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="card-resumo d-flex justify-content-between align-items-center">
+      <div>
+        <div class="card-label">Produtores</div>
+        <div class="card-valor"><%= totalProdutores %></div>
+      </div>
+      <div class="card-icone">🧑‍🌾</div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="card-resumo d-flex justify-content-between align-items-center">
+      <div>
+        <div class="card-label">Produtos Cadastrados</div>
+        <div class="card-valor"><%= totalProdutos %></div>
+      </div>
+      <div class="card-icone">📦</div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="card-resumo d-flex justify-content-between align-items-center">
+      <div>
+        <div class="card-label">Vendas este mês</div>
+        <div class="card-valor" style="font-size: 1.4rem;"><%= vendasMes %></div>
+      </div>
+      <div class="card-icone">💰</div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="card-resumo d-flex justify-content-between align-items-center">
+      <div>
+        <div class="card-label">Pedidos Pendentes</div>
+        <div class="card-valor"><%= pedidosPendentes %></div>
+      </div>
+      <div class="card-icone">🛒</div>
+    </div>
+  </div>
+</div>
+
+<!-- Próximas seções virão nos commits seguintes -->
+
 <%- include('partials/footer') %>
