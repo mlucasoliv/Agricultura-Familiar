@@ -194,4 +194,30 @@
   <% } %>
 </section>
 
+<section class="dashboard-section mt-4">
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-2 mb-3">
+    <div>
+      <span class="secao-titulo">&#128230; Produtos em Destaque</span>
+    </div>
+  </div>
+
+  <div class="row g-3 mt-1">
+    <% produtosDestaque.forEach((produto) => { %>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card-resumo produto-destaque-card h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="card-icone mb-2"><%= produto.emoji %></div>
+            <h6 class="mb-1"><%= produto.nome %></h6>
+            <small>Por: <%= produto.produtor %></small>
+          </div>
+          <div class="produto-destaque-card__rodape">
+            <span><%= produto.preco %></span>
+            <button class="btn-agro-outline" disabled type="button">Ver mais</button>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
 <%- include('partials/footer') %>

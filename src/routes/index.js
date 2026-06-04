@@ -5,6 +5,15 @@ const { Produto, Usuario } = require('../models');
 
 const mesesPtBr = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
+const produtosDestaque = [
+  { nome: 'Mel Silvestre 500g', produtor: 'João Silva', preco: 'R$ 85,00', emoji: '\u{1F36F}' },
+  { nome: 'Queijo Artesanal 400g', produtor: 'Ana Lima', preco: 'R$ 120,00', emoji: '\u{1F9C0}' },
+  { nome: 'Farinha de Mandioca 1kg', produtor: 'José Alves', preco: 'R$ 18,00', emoji: '\u{1F33E}' },
+  { nome: 'Rapadura 500g', produtor: 'Maria Oliveira', preco: 'R$ 12,50', emoji: '\u{1F36C}' },
+  { nome: 'Cachaça Artesanal 1L', produtor: 'Pedro Santos', preco: 'R$ 45,00', emoji: '\u{1F376}' },
+  { nome: 'Feijão Verde 1kg', produtor: 'Rosa Mendes', preco: 'R$ 22,00', emoji: '\u{1FAD8}' },
+];
+
 function montarGraficoProdutos(produtos) {
   const hoje = new Date();
   const meses = [];
@@ -99,6 +108,7 @@ router.get('/dashboard', protegerRota, async (req, res, next) => {
       meusIndisponiveis,
       produtosRecentes,
       produtosPorMes,
+      produtosDestaque,
     });
   } catch (err) {
     next(err);

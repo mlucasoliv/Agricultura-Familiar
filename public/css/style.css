@@ -931,3 +931,46 @@ textarea {
 .busca input {
   flex: 1;
 }
+
+/* Card de produto - hover suave */
+.produto-destaque-card {
+  gap: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: default;
+}
+
+.produto-destaque-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.produto-destaque-card .card-icone {
+  font-size: 2.5rem;
+}
+
+.produto-destaque-card h6 {
+  color: var(--cor-primaria-escura);
+}
+
+.produto-destaque-card small {
+  color: var(--cor-texto-suave);
+}
+
+.produto-destaque-card__rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-top: 1rem;
+}
+
+.produto-destaque-card__rodape span {
+  color: var(--cor-primaria);
+  font-size: 1.1rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.produto-destaque-card__rodape .btn-agro-outline {
+  min-width: 90px;
+}
