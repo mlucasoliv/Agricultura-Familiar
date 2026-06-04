@@ -2,12 +2,20 @@
   const currentPage = typeof activePage !== 'undefined' ? activePage : '';
 %>
 
+<div id="sidebar-overlay" class="sidebar-overlay" aria-hidden="true"></div>
+
 <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
   <nav>
     <ul class="sidebar-menu">
       <li>
-        <a href="/dashboard" class="sidebar-link <%= currentPage === 'dashboard' ? 'active' : '' %>" <%= currentPage === 'dashboard' ? 'aria-current="page"' : '' %>>
+        <a href="/" class="sidebar-link <%= currentPage === 'inicio' ? 'active' : '' %>" <%= currentPage === 'inicio' ? 'aria-current="page"' : '' %>>
           <span class="sidebar-icon">🏠</span>
+          <span class="sidebar-label">Início</span>
+        </a>
+      </li>
+      <li>
+        <a href="/dashboard" class="sidebar-link <%= currentPage === 'dashboard' ? 'active' : '' %>" <%= currentPage === 'dashboard' ? 'aria-current="page"' : '' %>>
+          <span class="sidebar-icon">📊</span>
           <span class="sidebar-label">Dashboard</span>
         </a>
       </li>

@@ -3,18 +3,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggler = document.querySelector('.navbar-toggler');
   const btnSidebarToggle = document.getElementById('btn-sidebar-toggle');
   const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+
+  function fecharNavbarMobile() {
+    if (!menu || !toggler || !window.bootstrap) return;
+
+    if (window.getComputedStyle(toggler).display !== 'none') {
+      window.bootstrap.Collapse.getOrCreateInstance(menu, { toggle: false }).hide();
+    }
+  }
+
+  function abrirSidebar() {
+    if (!sidebar || !overlay) return;
+
+    sidebar.classList.add('aberta');
+    overlay.classList.add('ativo');
+    document.body.style.overflow = 'hidden';
+    if (btnSidebarToggle) btnSidebarToggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function fecharSidebar() {
+    if (!sidebar || !overlay) return;
+
+    sidebar.classList.remove('aberta');
+    overlay.classList.remove('ativo');
+    document.body.style.overflow = '';
+    if (btnSidebarToggle) btnSidebarToggle.setAttribute('aria-expanded', 'false');
+  }
 
   if (menu && toggler && window.bootstrap) {
-    const collapse = window.bootstrap.Collapse.getOrCreateInstance(menu, {
-      toggle: false,
-    });
-
     menu.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        if (window.getComputedStyle(toggler).display !== 'none') {
-          collapse.hide();
-        }
-      });
+      link.addEventListener('click', fecharNavbarMobile);
     });
 
     menu.addEventListener('shown.bs.collapse', () => {
@@ -26,22 +45,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (btnSidebarToggle && sidebar) {
-    btnSidebarToggle.addEventListener('click', (event) => {
-      event.stopPropagation();
-      sidebar.classList.toggle('aberta');
+  if (btnSidebarToggle && sidebar && overlay) {
+    btnSidebarToggle.addEventListener('click', () => {
+      sidebar.classList.contains('aberta') ? fecharSidebar() : abrirSidebar();
     });
 
-    sidebar.addEventListener('click', (event) => {
-      if (event.target.closest('a')) {
-        sidebar.classList.remove('aberta');
-      }
+    overlay.addEventListener('click', fecharSidebar);
+
+    document.querySelectorAll('.sidebar-link').forEach((link) => {
+      link.addEventListener('click', fecharSidebar);
     });
 
-    document.addEventListener('click', (event) => {
-      if (!sidebar.contains(event.target) && !btnSidebarToggle.contains(event.target)) {
-        sidebar.classList.remove('aberta');
-      }
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) fecharSidebar();
     });
   }
 });

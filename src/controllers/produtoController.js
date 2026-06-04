@@ -11,7 +11,12 @@ exports.listar = async (req, res) => {
     include: [{ model: Usuario, as: 'dono', attributes: ['nome'] }],
     order: [['createdAt', 'DESC']],
   });
-  res.render('produtos/lista', { produtos, busca });
+  res.render('produtos/lista', {
+    title: 'Produtos',
+    activePage: 'produtos',
+    produtos,
+    busca,
+  });
 };
 
 // Pagina publica com os detalhes de um produto.
@@ -20,12 +25,18 @@ exports.detalhe = async (req, res) => {
     include: [{ model: Usuario, as: 'dono', attributes: ['nome'] }],
   });
   if (!produto) return res.status(404).render('404');
-  res.render('produtos/detalhe', { produto });
+  res.render('produtos/detalhe', {
+    title: produto.nome,
+    activePage: 'produtos',
+    produto,
+  });
 };
 
 // Formulario de novo produto.
 exports.mostrarNovo = (req, res) => {
   res.render('produtos/form', {
+    title: 'Novo produto',
+    activePage: 'produtos',
     titulo: 'Novo produto',
     acao: '/produtos',
     produto: {},
@@ -48,6 +59,8 @@ exports.criar = async (req, res) => {
     res.redirect('/produtos/meus');
   } catch (err) {
     res.status(400).render('produtos/form', {
+      title: 'Novo produto',
+      activePage: 'produtos',
       titulo: 'Novo produto',
       acao: '/produtos',
       produto: { nome, descricao, preco, unidade },
@@ -62,7 +75,11 @@ exports.meusProdutos = async (req, res) => {
     where: { usuarioId: req.usuario.id },
     order: [['createdAt', 'DESC']],
   });
-  res.render('produtos/meus', { produtos });
+  res.render('produtos/meus', {
+    title: 'Meus produtos',
+    activePage: 'produtos',
+    produtos,
+  });
 };
 
 // Formulario de edicao (apenas do proprio produto).
@@ -70,6 +87,8 @@ exports.mostrarEditar = async (req, res) => {
   const produto = await buscarDoDono(req);
   if (!produto) return res.status(404).render('404');
   res.render('produtos/form', {
+    title: 'Editar produto',
+    activePage: 'produtos',
     titulo: 'Editar produto',
     acao: `/produtos/${produto.id}`,
     produto,
@@ -94,6 +113,8 @@ exports.atualizar = async (req, res) => {
     res.redirect('/produtos/meus');
   } catch (err) {
     res.status(400).render('produtos/form', {
+      title: 'Editar produto',
+      activePage: 'produtos',
       titulo: 'Editar produto',
       acao: `/produtos/${produto.id}`,
       produto: { id: produto.id, nome, descricao, preco, unidade },

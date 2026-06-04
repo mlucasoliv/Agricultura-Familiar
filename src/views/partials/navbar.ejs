@@ -5,11 +5,11 @@
 
 <nav class="navbar navbar-expand-md navbar-dark sticky-top navbar-agro">
   <div class="container-fluid">
-    <a class="navbar-brand fw-semibold" href="/">🌱 AgroFamília</a>
-
     <% if (loggedUser) { %>
-      <button id="btn-sidebar-toggle" class="btn btn-sm btn-outline-light d-md-none me-2" type="button" aria-label="Abrir menu lateral">☰</button>
+      <button id="btn-sidebar-toggle" class="btn btn-sm btn-outline-light d-md-none me-2" type="button" aria-label="Abrir menu lateral" aria-controls="sidebar" aria-expanded="false">☰</button>
     <% } %>
+
+    <a class="navbar-brand fw-semibold" href="/">🌱 AgroFamília</a>
 
     <button
       class="navbar-toggler"
@@ -28,7 +28,13 @@
         <li class="nav-item">
           <a class="nav-link <%= currentPage === 'inicio' ? 'active' : '' %>" href="/" <%= currentPage === 'inicio' ? 'aria-current="page"' : '' %>>Início</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link <%= currentPage === 'produtos' ? 'active' : '' %>" href="/produtos" <%= currentPage === 'produtos' ? 'aria-current="page"' : '' %>>Produtos</a>
+        </li>
         <% if (loggedUser) { %>
+          <li class="nav-item">
+            <a class="nav-link <%= currentPage === 'pedidos' ? 'active' : '' %>" href="/pedidos" <%= currentPage === 'pedidos' ? 'aria-current="page"' : '' %>>Pedidos</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link <%= currentPage === 'dashboard' ? 'active' : '' %>" href="/dashboard" <%= currentPage === 'dashboard' ? 'aria-current="page"' : '' %>>Painel</a>
           </li>
