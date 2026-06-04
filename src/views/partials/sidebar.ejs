@@ -18,9 +18,10 @@
         </a>
       </li>
       <li>
-        <a href="#" class="sidebar-link disabled" aria-disabled="true" tabindex="-1">
+        <a href="/pedidos" class="sidebar-link <%= currentPage === 'pedidos' ? 'active' : '' %>" <%= currentPage === 'pedidos' ? 'aria-current="page"' : '' %>>
           <span class="sidebar-icon">🛒</span>
-          <span class="sidebar-label">Pedidos em breve</span>
+          <span class="sidebar-label">Pedidos</span>
+          <span class="sidebar-badge">7</span>
         </a>
       </li>
       <li>

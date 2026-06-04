@@ -24,6 +24,18 @@
   </div>
 </section>
 
+<% if (alertas && alertas.length > 0) { %>
+  <section class="dashboard-alertas mb-4" aria-label="Alertas e notificações">
+    <% alertas.forEach((alerta) => { %>
+      <div class="alerta-agro alerta-<%= alerta.tipo %> mb-2">
+        <span class="alerta-icone"><%= alerta.icone %></span>
+        <span><%= alerta.mensagem %></span>
+        <button class="alerta-fechar" type="button" aria-label="Fechar alerta" onclick="this.parentElement.remove()">&times;</button>
+      </div>
+    <% }) %>
+  </section>
+<% } %>
+
 <div class="row g-3 mb-4">
   <% if (isProdutor) { %>
     <div class="col-12 col-sm-6 col-xl-3">

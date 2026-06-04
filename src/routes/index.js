@@ -14,6 +14,12 @@ const produtosDestaque = [
   { nome: 'Feijão Verde 1kg', produtor: 'Rosa Mendes', preco: 'R$ 22,00', emoji: '\u{1FAD8}' },
 ];
 
+const alertas = [
+  { tipo: 'aviso', icone: '\u26A0\uFE0F', mensagem: '3 produtos com estoque baixo cadastrados esta semana.' },
+  { tipo: 'info', icone: '\u2139\uFE0F', mensagem: '2 novos produtores aguardam aprovação de cadastro.' },
+  { tipo: 'sucesso', icone: '\u2705', mensagem: 'Pedido #0042 foi concluído com sucesso.' },
+];
+
 function montarGraficoProdutos(produtos) {
   const hoje = new Date();
   const meses = [];
@@ -109,6 +115,7 @@ router.get('/dashboard', protegerRota, async (req, res, next) => {
       produtosRecentes,
       produtosPorMes,
       produtosDestaque,
+      alertas,
     });
   } catch (err) {
     next(err);

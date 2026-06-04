@@ -974,3 +974,67 @@ textarea {
 .produto-destaque-card__rodape .btn-agro-outline {
   min-width: 90px;
 }
+
+/* =============================================
+   ALERTAS / NOTIFICAÇÕES
+   ============================================= */
+.alerta-agro {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: var(--raio-borda);
+  border-left: 4px solid;
+  font-size: 0.9rem;
+  position: relative;
+}
+
+.alerta-aviso {
+  background-color: #fff8e1;
+  border-color: var(--cor-destaque);
+  color: #7d4e00;
+}
+
+.alerta-info {
+  background-color: #e3f2fd;
+  border-color: #1976d2;
+  color: #0d3c6e;
+}
+
+.alerta-sucesso {
+  background-color: #e8f5e9;
+  border-color: var(--cor-sucesso);
+  color: #1b4332;
+}
+
+.alerta-icone {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.alerta-fechar {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+  line-height: 1;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+
+.alerta-fechar:hover {
+  opacity: 1;
+}
+
+.sidebar-badge {
+  margin-left: auto;
+  background: var(--cor-destaque);
+  color: #1b1b1b;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 20px;
+}
