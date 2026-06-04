@@ -4,6 +4,7 @@
   const subtitulo = isProdutor
     ? `Sua vitrine tem ${meusProdutos} produto${meusProdutos === 1 ? '' : 's'}, com ${meusDisponiveis} disponíve${meusDisponiveis === 1 ? 'l' : 'is'} para consulta.`
     : `Encontre produtos disponíveis de ${totalProdutores} produtor${totalProdutores === 1 ? '' : 'es'} da agricultura familiar.`;
+  const temDadosGrafico = produtosPorMes.some((item) => item.total > 0);
 %>
 
 <section class="dashboard-hero">
@@ -97,7 +98,7 @@
   <% } %>
 </div>
 
-<section class="dashboard-section">
+<section class="dashboard-section mb-4">
   <div class="d-flex flex-column flex-md-row justify-content-between gap-2 mb-3">
     <div>
       <span class="secao-titulo">🧺 <%= tituloCatalogo %></span>
@@ -155,6 +156,40 @@
       <% } else { %>
         <a class="btn-agro-outline" href="/produtos">Ir para produtos</a>
       <% } %>
+    </div>
+  <% } %>
+</section>
+
+<section class="dashboard-section">
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-2 mb-3">
+    <div>
+      <span class="secao-titulo">📈 Evolução do catálogo</span>
+      <p class="dashboard-section__hint">
+        <%= isProdutor ? 'Produtos cadastrados por você nos últimos meses.' : 'Produtos cadastrados no catálogo nos últimos meses.' %>
+      </p>
+    </div>
+  </div>
+
+  <% if (temDadosGrafico) { %>
+    <div class="catalog-chart" aria-label="Produtos cadastrados por mês">
+      <% produtosPorMes.forEach((item) => { %>
+        <div class="catalog-chart__item">
+          <div class="catalog-chart__bar-wrap">
+            <span
+              class="catalog-chart__bar"
+              style="height: <%= item.altura %>%;"
+              title="<%= item.total %> produto<%= item.total === 1 ? '' : 's' %> em <%= item.mes %>"
+            ></span>
+          </div>
+          <strong><%= item.total %></strong>
+          <span><%= item.mes %></span>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="empty-state">
+      <strong>Ainda não há produtos suficientes para montar o gráfico.</strong>
+      <p>Assim que produtos forem cadastrados, a evolução mensal do catálogo aparecerá aqui.</p>
     </div>
   <% } %>
 </section>

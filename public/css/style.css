@@ -267,6 +267,57 @@ h6 {
   margin-bottom: 1rem;
 }
 
+.catalog-chart {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(56px, 1fr));
+  align-items: end;
+  gap: .85rem;
+  min-height: 260px;
+  padding: 1rem .25rem .25rem;
+}
+
+.catalog-chart__item {
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  align-items: end;
+  min-width: 0;
+  height: 220px;
+  text-align: center;
+}
+
+.catalog-chart__bar-wrap {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 160px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(45, 106, 79, .08), rgba(45, 106, 79, .03));
+  overflow: hidden;
+}
+
+.catalog-chart__bar {
+  display: block;
+  width: min(42px, 70%);
+  min-height: 8px;
+  border-radius: 999px 999px 0 0;
+  background:
+    linear-gradient(180deg, var(--cor-secundaria), var(--cor-primaria));
+  box-shadow: 0 10px 18px rgba(45, 106, 79, .18);
+}
+
+.catalog-chart__item strong {
+  margin-top: .55rem;
+  color: var(--cor-primaria-escura);
+  font-size: .98rem;
+}
+
+.catalog-chart__item span {
+  color: var(--cor-texto-suave);
+  font-size: .78rem;
+  white-space: nowrap;
+}
+
 .navbar-agro {
   background:
     linear-gradient(90deg, rgba(22, 63, 43, .98), rgba(45, 106, 79, .98)),
@@ -710,6 +761,16 @@ select:focus {
   .dashboard-actions .btn-agro,
   .dashboard-actions .btn-agro-outline {
     width: 100%;
+  }
+
+  .catalog-chart {
+    grid-template-columns: repeat(6, minmax(48px, 1fr));
+    gap: .5rem;
+    overflow-x: auto;
+  }
+
+  .catalog-chart__item {
+    min-width: 52px;
   }
 }
 
