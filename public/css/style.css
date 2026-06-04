@@ -1076,3 +1076,81 @@ textarea {
   padding: 1px 7px;
   border-radius: 20px;
 }
+
+/* =============================================
+   RESPONSIVIDADE - CARDS DO DASHBOARD
+   ============================================= */
+@media (max-width: 767px) {
+  .card-resumo {
+    padding: 1rem;
+  }
+
+  .card-resumo .card-valor {
+    font-size: 1.6rem;
+  }
+
+  .card-resumo .card-icone {
+    font-size: 1.6rem;
+  }
+
+  .card-resumo .card-label {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .secao-titulo {
+    font-size: 0.95rem;
+  }
+
+  .catalog-chart {
+    min-height: 220px;
+  }
+
+  .catalog-chart__item {
+    height: 190px;
+  }
+
+  .catalog-chart__bar-wrap {
+    height: 130px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-resumo {
+    align-items: center;
+    flex-direction: row;
+    padding: 0.85rem 1rem;
+  }
+
+  .card-resumo .card-valor {
+    font-size: 1.4rem;
+  }
+
+  .card-resumo .card-icone {
+    font-size: 1.4rem;
+    margin-left: 0.5rem;
+  }
+
+  .alerta-agro {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+
+  .produto-destaque-card {
+    padding: 0.85rem;
+  }
+
+  .produto-destaque-card__rodape {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .produto-destaque-card__rodape .btn-agro-outline {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+}
