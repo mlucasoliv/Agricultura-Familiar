@@ -1224,3 +1224,167 @@ textarea {
     font-size: 1.3rem;
   }
 }
+
+/* =============================================
+   BOTOES - AREA DE TOQUE MOBILE
+   ============================================= */
+.btn-agro,
+.btn-agro-outline,
+.botao,
+.form-agro button,
+.btn {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+.alerta-fechar {
+  min-height: unset;
+  min-width: unset;
+}
+
+/* =============================================
+   INPUTS E FORMULARIOS GLOBAIS
+   ============================================= */
+.form-agro {
+  max-width: 480px;
+}
+
+.form-agro label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--cor-texto);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.form-agro input,
+.form-agro select,
+.form-agro textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  background-color: #fff;
+  color: var(--cor-texto);
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-agro select {
+  padding-right: 40px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--cor-texto-suave) 50%),
+    linear-gradient(135deg, var(--cor-texto-suave) 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) 50%,
+    calc(100% - 14px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.form-agro input:focus,
+.form-agro select:focus,
+.form-agro textarea:focus {
+  outline: none;
+  border-color: var(--cor-secundaria);
+  box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.2);
+}
+
+.form-agro select:focus {
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--cor-primaria) 50%),
+    linear-gradient(135deg, var(--cor-primaria) 50%, transparent 50%);
+}
+
+.form-agro .campo-erro:focus {
+  border-color: var(--cor-perigo);
+  box-shadow: 0 0 0 3px rgba(214, 40, 40, 0.16);
+}
+
+.form-agro textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-agro .form-grupo {
+  margin-bottom: 1.1rem;
+}
+
+.form-agro .form-erro {
+  display: block;
+  margin-top: 4px;
+  color: var(--cor-perigo);
+  font-size: 0.8rem;
+}
+
+.form-agro .form-dica {
+  display: block;
+  margin-top: 3px;
+  color: var(--cor-texto-suave);
+  font-size: 0.78rem;
+}
+
+.form-agro .campo-erro {
+  border-color: var(--cor-perigo);
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+
+.btn-agro:disabled,
+.btn-agro-outline:disabled,
+.botao:disabled,
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: .65;
+}
+
+.form-example {
+  width: min(100%, 560px);
+}
+
+textarea:focus-visible {
+  outline: 3px solid rgba(242, 201, 76, .78);
+  outline-offset: 3px;
+}
+
+.sidebar-link {
+  min-height: 48px;
+}
+
+@media (max-width: 767px) {
+  .sidebar-link {
+    padding: 14px 20px;
+  }
+
+  .nav-link {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .form-agro .btn-agro,
+  .form-agro .btn-agro-outline,
+  .form-agro .botao,
+  .form-card form > .botao {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .form-agro {
+    max-width: 100%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}

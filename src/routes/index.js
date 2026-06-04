@@ -55,6 +55,13 @@ router.get('/', (req, res) => {
   res.render('index', { title: 'Início', activePage: 'inicio' });
 });
 
+router.get('/form-exemplo', (req, res) => {
+  res.render('pages/form-exemplo', {
+    title: 'Formulário Exemplo',
+    activePage: '',
+  });
+});
+
 // Pagina privada — so acessivel com login (rota protegida pelo middleware).
 router.get('/dashboard', protegerRota, async (req, res, next) => {
   try {
