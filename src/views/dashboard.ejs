@@ -1,28 +1,235 @@
 <%- include('partials/header') %>
 <%
-  const tipoConta = usuario.tipo === 'produtor' ? 'Produtor' : 'Consumidor';
-  const painelDescricao = usuario.tipo === 'produtor'
-    ? 'Aqui você poderá cadastrar seus produtos, acompanhar pedidos e gerenciar suas vendas.'
-    : 'Aqui você poderá acompanhar seus pedidos e encontrar produtos de produtores locais.';
+  const tituloCatalogo = isProdutor ? 'Meus produtos recentes' : 'Produtos recentes no catálogo';
+  const subtitulo = isProdutor
+    ? `Sua vitrine tem ${meusProdutos} produto${meusProdutos === 1 ? '' : 's'}, com ${meusDisponiveis} disponíve${meusDisponiveis === 1 ? 'l' : 'is'} para consulta.`
+    : `Encontre produtos disponíveis de ${totalProdutores} produtor${totalProdutores === 1 ? '' : 'es'} da agricultura familiar.`;
+  const temDadosGrafico = produtosPorMes.some((item) => item.total > 0);
 %>
-<section class="painel">
-  <p class="form-kicker">Área protegida</p>
-  <h1>Seu painel</h1>
-  <p>Olá, <strong><%= usuario.nome %></strong>. <%= painelDescricao %></p>
 
-  <ul class="dados">
-    <li>
-      <span>E-mail</span>
-      <strong><%= usuario.email %></strong>
-    </li>
-    <li>
-      <span>Tipo de conta</span>
-      <strong><%= tipoConta %></strong>
-    </li>
-  </ul>
-  <% if (usuario.tipo === 'produtor') { %>
-    <p><a class="botao" href="/produtos/meus">Gerenciar meus produtos</a></p>
-  <% } %>
-  <p class="aviso">Novas áreas de produtos e pedidos serão conectadas ao seu painel nas próximas etapas.</p>
+<section class="dashboard-hero">
+  <div>
+    <p class="form-kicker">Central AgroFamília</p>
+    <h2><%= isProdutor ? 'Sua vitrine no campo' : 'Catálogo da agricultura familiar' %></h2>
+    <p><%= subtitulo %></p>
+  </div>
+
+  <div class="dashboard-actions">
+    <% if (isProdutor) { %>
+      <a class="btn-agro" href="/produtos/novo">Cadastrar novo produto</a>
+      <a class="btn-agro-outline" href="/produtos/meus">Gerenciar meus produtos</a>
+    <% } else { %>
+      <a class="btn-agro" href="/produtos">Ver produtos disponíveis</a>
+    <% } %>
+  </div>
 </section>
+
+<% if (alertas && alertas.length > 0) { %>
+  <section class="dashboard-alertas mb-4" aria-label="Alertas e notificações">
+    <% alertas.forEach((alerta) => { %>
+      <div class="alerta-agro alerta-<%= alerta.tipo %> mb-2">
+        <span class="alerta-icone"><%= alerta.icone %></span>
+        <span><%= alerta.mensagem %></span>
+        <button class="alerta-fechar" type="button" aria-label="Fechar alerta" onclick="this.parentElement.remove()">&times;</button>
+      </div>
+    <% }) %>
+  </section>
+<% } %>
+
+<div class="row g-3 mb-4">
+  <% if (isProdutor) { %>
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="card-resumo d-flex justify-content-between align-items-center">
+        <div>
+          <div class="card-label">Meus produtos</div>
+          <div class="card-valor"><%= meusProdutos %></div>
+        </div>
+        <div class="card-icone">📦</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="card-resumo d-flex justify-content-between align-items-center">
+        <div>
+          <div class="card-label">Disponíveis</div>
+          <div class="card-valor"><%= meusDisponiveis %></div>
+        </div>
+        <div class="card-icone">🌿</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="card-resumo d-flex justify-content-between align-items-center">
+        <div>
+          <div class="card-label">Indisponíveis</div>
+          <div class="card-valor"><%= meusIndisponiveis %></div>
+        </div>
+        <div class="card-icone">⏸️</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="card-resumo d-flex justify-content-between align-items-center">
+        <div>
+          <div class="card-label">No catálogo</div>
+          <div class="card-valor"><%= totalProdutos %></div>
+        </div>
+        <div class="card-icone">🧺</div>
+      </div>
+    </div>
+  <% } else { %>
+    <div class="col-12 col-sm-6 col-xl-4">
+      <div class="card-resumo d-flex justify-content-between align-items-center">
+        <div>
+          <div class="card-label">Produtos disponíveis</div>
+          <div class="card-valor"><%= totalDisponiveis %></div>
+        </div>
+        <div class="card-icone">🌿</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-4">
+      <div class="card-resumo d-flex justify-content-between align-items-center">
+        <div>
+          <div class="card-label">Produtos cadastrados</div>
+          <div class="card-valor"><%= totalProdutos %></div>
+        </div>
+        <div class="card-icone">📦</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-4">
+      <div class="card-resumo d-flex justify-content-between align-items-center">
+        <div>
+          <div class="card-label">Produtores</div>
+          <div class="card-valor"><%= totalProdutores %></div>
+        </div>
+        <div class="card-icone">🧑‍🌾</div>
+      </div>
+    </div>
+  <% } %>
+</div>
+
+<section class="dashboard-section mb-4">
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-2 mb-3">
+    <div>
+      <span class="secao-titulo">🧺 <%= tituloCatalogo %></span>
+      <p class="dashboard-section__hint">
+        <%= isProdutor ? 'Acompanhe os últimos itens cadastrados na sua vitrine.' : 'Veja produtos disponíveis adicionados recentemente.' %>
+      </p>
+    </div>
+  </div>
+
+  <% if (produtosRecentes.length) { %>
+    <div class="table-responsive">
+      <table class="tabela-agro">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Produtor</th>
+            <th>Preço / unidade</th>
+            <th>Status</th>
+            <th>Cadastro</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% produtosRecentes.forEach((produto) => { %>
+            <tr>
+              <td><%= produto.nome %></td>
+              <td><%= produto.dono ? produto.dono.nome : usuario.nome %></td>
+              <td><strong>R$ <%= Number(produto.preco).toFixed(2).replace('.', ',') %></strong> / <%= produto.unidade %></td>
+              <td>
+                <% if (produto.disponivel) { %>
+                  <span class="badge-status badge-concluido">Disponível</span>
+                <% } else { %>
+                  <span class="badge-status badge-cancelado">Indisponível</span>
+                <% } %>
+              </td>
+              <td><%= produto.createdAt ? produto.createdAt.toLocaleDateString('pt-BR') : '-' %></td>
+              <td>
+                <% if (isProdutor) { %>
+                  <a href="/produtos/<%= produto.id %>/editar">Editar</a>
+                <% } else { %>
+                  <a href="/produtos/<%= produto.id %>">Ver produto</a>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <div class="empty-state">
+      <strong><%= isProdutor ? 'Sua vitrine ainda está vazia.' : 'Nenhum produto disponível no momento.' %></strong>
+      <p><%= isProdutor ? 'Cadastre o primeiro produto para começar a montar seu catálogo.' : 'Volte em breve para conferir novas ofertas de produtores locais.' %></p>
+      <% if (isProdutor) { %>
+        <a class="btn-agro" href="/produtos/novo">Cadastrar primeiro produto</a>
+      <% } else { %>
+        <a class="btn-agro-outline" href="/produtos">Ir para produtos</a>
+      <% } %>
+    </div>
+  <% } %>
+</section>
+
+<section class="dashboard-section">
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-2 mb-3">
+    <div>
+      <span class="secao-titulo">📈 Evolução do catálogo</span>
+      <p class="dashboard-section__hint">
+        <%= isProdutor ? 'Produtos cadastrados por você nos últimos meses.' : 'Produtos cadastrados no catálogo nos últimos meses.' %>
+      </p>
+    </div>
+  </div>
+
+  <% if (temDadosGrafico) { %>
+    <div class="catalog-chart" aria-label="Produtos cadastrados por mês">
+      <% produtosPorMes.forEach((item) => { %>
+        <div class="catalog-chart__item">
+          <div class="catalog-chart__bar-wrap">
+            <span
+              class="catalog-chart__bar"
+              style="height: <%= item.altura %>%;"
+              title="<%= item.total %> produto<%= item.total === 1 ? '' : 's' %> em <%= item.mes %>"
+            ></span>
+          </div>
+          <strong><%= item.total %></strong>
+          <span><%= item.mes %></span>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="empty-state">
+      <strong>Ainda não há produtos suficientes para montar o gráfico.</strong>
+      <p>Assim que produtos forem cadastrados, a evolução mensal do catálogo aparecerá aqui.</p>
+    </div>
+  <% } %>
+</section>
+
+<section class="dashboard-section mt-4">
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-2 mb-3">
+    <div>
+      <span class="secao-titulo">&#128230; Produtos em Destaque</span>
+    </div>
+  </div>
+
+  <div class="row g-3 mt-1">
+    <% produtosDestaque.forEach((produto) => { %>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card-resumo produto-destaque-card h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="card-icone mb-2"><%= produto.emoji %></div>
+            <h6 class="mb-1"><%= produto.nome %></h6>
+            <small>Por: <%= produto.produtor %></small>
+          </div>
+          <div class="produto-destaque-card__rodape">
+            <span><%= produto.preco %></span>
+            <button class="btn-agro-outline" disabled type="button">Ver mais</button>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
 <%- include('partials/footer') %>

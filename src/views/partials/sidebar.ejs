@@ -21,12 +21,13 @@
         <a href="/pedidos" class="sidebar-link <%= currentPage === 'pedidos' ? 'active' : '' %>" <%= currentPage === 'pedidos' ? 'aria-current="page"' : '' %>>
           <span class="sidebar-icon">🛒</span>
           <span class="sidebar-label">Pedidos</span>
+          <span class="sidebar-badge">7</span>
         </a>
       </li>
       <li>
-        <a href="/artigo" class="sidebar-link <%= currentPage === 'artigo' ? 'active' : '' %>" <%= currentPage === 'artigo' ? 'aria-current="page"' : '' %>>
+        <a href="#" class="sidebar-link disabled" aria-disabled="true" tabindex="-1">
           <span class="sidebar-icon">📰</span>
-          <span class="sidebar-label">Artigos</span>
+          <span class="sidebar-label">Artigos em breve</span>
         </a>
       </li>
       <li>
