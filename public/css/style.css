@@ -167,6 +167,7 @@ h6 {
 
 .tabela-agro {
   width: 100%;
+  min-width: 400px;
   border-collapse: collapse;
   background: var(--cor-fundo-card);
   border-radius: var(--raio-borda);
@@ -189,6 +190,12 @@ h6 {
 
 .tabela-agro tbody tr:hover {
   background-color: #f0faf4;
+}
+
+.tabela-agro__meta {
+  margin-top: 3px;
+  color: var(--cor-texto-suave);
+  font-size: 0.78rem;
 }
 
 .secao-titulo {
@@ -1075,6 +1082,69 @@ textarea {
   font-weight: 700;
   padding: 1px 7px;
   border-radius: 20px;
+}
+
+/* =============================================
+   RESPONSIVIDADE - TABELAS
+   ============================================= */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--raio-borda);
+}
+
+.tabela-compacta {
+  min-width: 520px;
+}
+
+@media (max-width: 575px) {
+  .tabela-agro th,
+  .tabela-agro td,
+  .tabela th,
+  .tabela td {
+    padding: 9px 10px;
+    font-size: 0.82rem;
+  }
+
+  .badge-status {
+    padding: 2px 7px;
+    font-size: 0.72rem;
+  }
+
+  .produto-destaque-card {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 12px;
+    padding: 0.75rem 1rem;
+  }
+
+  .produto-destaque-card .card-icone {
+    flex-shrink: 0;
+    margin-bottom: 0 !important;
+    font-size: 2rem;
+  }
+
+  .produto-destaque-card h6 {
+    margin-bottom: 2px !important;
+    font-size: 0.9rem;
+  }
+
+  .produto-destaque-card small {
+    font-size: 0.75rem;
+  }
+
+  .produto-destaque-card__rodape {
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 6px !important;
+  }
+
+  .btn-agro-outline {
+    width: 100%;
+    padding: 5px 12px;
+    text-align: center;
+    font-size: 0.8rem;
+  }
 }
 
 /* =============================================

@@ -121,32 +121,42 @@
   </div>
 
   <% if (produtosRecentes.length) { %>
-    <div class="table-responsive">
+    <div class="table-responsive mt-2">
       <table class="tabela-agro">
         <thead>
           <tr>
             <th>Produto</th>
-            <th>Produtor</th>
+            <th class="d-none d-md-table-cell">Produtor</th>
             <th>Preço / unidade</th>
-            <th>Status</th>
-            <th>Cadastro</th>
+            <th class="d-none d-sm-table-cell">Status</th>
+            <th class="d-none d-lg-table-cell">Cadastro</th>
             <th>Ação</th>
           </tr>
         </thead>
         <tbody>
           <% produtosRecentes.forEach((produto) => { %>
             <tr>
-              <td><%= produto.nome %></td>
-              <td><%= produto.dono ? produto.dono.nome : usuario.nome %></td>
-              <td><strong>R$ <%= Number(produto.preco).toFixed(2).replace('.', ',') %></strong> / <%= produto.unidade %></td>
               <td>
+                <strong><%= produto.nome %></strong>
+                <div class="tabela-agro__meta d-md-none">
+                  <%= produto.dono ? produto.dono.nome : usuario.nome %>
+                  <% if (produto.disponivel) { %>
+                    <span class="badge-status badge-concluido ms-1">Disponível</span>
+                  <% } else { %>
+                    <span class="badge-status badge-cancelado ms-1">Indisponível</span>
+                  <% } %>
+                </div>
+              </td>
+              <td class="d-none d-md-table-cell"><%= produto.dono ? produto.dono.nome : usuario.nome %></td>
+              <td><strong>R$ <%= Number(produto.preco).toFixed(2).replace('.', ',') %></strong> / <%= produto.unidade %></td>
+              <td class="d-none d-sm-table-cell">
                 <% if (produto.disponivel) { %>
                   <span class="badge-status badge-concluido">Disponível</span>
                 <% } else { %>
                   <span class="badge-status badge-cancelado">Indisponível</span>
                 <% } %>
               </td>
-              <td><%= produto.createdAt ? produto.createdAt.toLocaleDateString('pt-BR') : '-' %></td>
+              <td class="d-none d-lg-table-cell"><%= produto.createdAt ? produto.createdAt.toLocaleDateString('pt-BR') : '-' %></td>
               <td>
                 <% if (isProdutor) { %>
                   <a href="/produtos/<%= produto.id %>/editar">Editar</a>
