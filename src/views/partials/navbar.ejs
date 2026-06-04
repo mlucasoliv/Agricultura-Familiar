@@ -7,7 +7,9 @@
   <div class="container-fluid">
     <a class="navbar-brand fw-semibold" href="/">🌱 AgroFamília</a>
 
-    <button id="btn-sidebar-toggle" class="btn btn-sm btn-outline-light d-md-none me-2" type="button" aria-label="Abrir menu lateral">☰</button>
+    <% if (loggedUser) { %>
+      <button id="btn-sidebar-toggle" class="btn btn-sm btn-outline-light d-md-none me-2" type="button" aria-label="Abrir menu lateral">☰</button>
+    <% } %>
 
     <button
       class="navbar-toggler"

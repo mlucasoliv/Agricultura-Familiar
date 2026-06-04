@@ -1,0 +1,20 @@
+<%- include('partials/header') %>
+<section class="dashboard-hero">
+  <div>
+    <p class="form-kicker">Pedidos</p>
+    <h2>Pedidos em preparação</h2>
+    <p>O módulo de pedidos será conectado nas próximas etapas. Por enquanto, há <strong><%= pedidosPendentes %></strong> pendências mockadas para manter o layout do painel.</p>
+  </div>
+
+  <div class="dashboard-actions">
+    <a class="btn-agro-outline" href="/dashboard">Voltar ao painel</a>
+  </div>
+</section>
+
+<section class="dashboard-section">
+  <div class="empty-state">
+    <strong>Nenhum fluxo de pedido implementado ainda.</strong>
+    <p>Quando o model de pedidos estiver pronto, esta tela deve listar compras, vendas, status e ações do pedido.</p>
+  </div>
+</section>
+<%- include('partials/footer') %>

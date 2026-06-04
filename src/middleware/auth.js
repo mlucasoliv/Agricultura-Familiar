@@ -33,4 +33,19 @@ function protegerRota(req, res, next) {
   next();
 }
 
-module.exports = { identificarUsuario, protegerRota };
+function exigirProdutor(req, res, next) {
+  if (!req.usuario) {
+    return res.redirect('/login');
+  }
+
+  if (req.usuario.tipo !== 'produtor') {
+    return res.status(403).render('403', {
+      title: 'Acesso restrito',
+      activePage: 'dashboard',
+    });
+  }
+
+  next();
+}
+
+module.exports = { identificarUsuario, protegerRota, exigirProdutor };

@@ -122,4 +122,12 @@ router.get('/dashboard', protegerRota, async (req, res, next) => {
   }
 });
 
+router.get('/pedidos', protegerRota, (req, res) => {
+  res.render('pedidos', {
+    title: 'Pedidos',
+    activePage: 'pedidos',
+    pedidosPendentes: 7,
+  });
+});
+
 module.exports = router;

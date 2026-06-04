@@ -10,5 +10,7 @@
 <body>
   <%- include('navbar') %>
   <div class="wrapper">
-    <%- include('sidebar') %>
+    <% if (usuario) { %>
+      <%- include('sidebar') %>
+    <% } %>
     <main class="main-content conteudo">
