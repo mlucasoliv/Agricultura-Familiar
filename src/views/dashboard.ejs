@@ -1,14 +1,28 @@
 <%- include('partials/header') %>
+<%
+  const tipoConta = usuario.tipo === 'produtor' ? 'Produtor' : 'Consumidor';
+  const painelDescricao = usuario.tipo === 'produtor'
+    ? 'Aqui você poderá cadastrar seus produtos, acompanhar pedidos e gerenciar suas vendas.'
+    : 'Aqui você poderá acompanhar seus pedidos e encontrar produtos de produtores locais.';
+%>
 <section class="painel">
-  <h1>Painel</h1>
-  <p>Bem-vindo(a), <strong><%= usuario.nome %></strong>!</p>
+  <p class="form-kicker">Área protegida</p>
+  <h1>Seu painel</h1>
+  <p>Olá, <strong><%= usuario.nome %></strong>. <%= painelDescricao %></p>
+
   <ul class="dados">
-    <li><strong>E-mail:</strong> <%= usuario.email %></li>
-    <li><strong>Tipo de conta:</strong> <%= usuario.tipo %></li>
+    <li>
+      <span>E-mail</span>
+      <strong><%= usuario.email %></strong>
+    </li>
+    <li>
+      <span>Tipo de conta</span>
+      <strong><%= tipoConta %></strong>
+    </li>
   </ul>
   <% if (usuario.tipo === 'produtor') { %>
     <p><a class="botao" href="/produtos/meus">Gerenciar meus produtos</a></p>
   <% } %>
-  <p class="aviso">Esta e uma rota protegida: so e possivel visualiza-la autenticado.</p>
+  <p class="aviso">Novas áreas de produtos e pedidos serão conectadas ao seu painel nas próximas etapas.</p>
 </section>
 <%- include('partials/footer') %>
