@@ -1,18 +1,10 @@
 const sequelize = require('../config/database');
 const Usuario = require('./Usuario');
+const Pedido = require('./Pedido');
 
-// Registro central dos models da aplicacao.
-const db = { sequelize, Usuario };
+const db = { sequelize, Usuario, Pedido };
 
-// -------------------------------------------------------------------
-// ENTIDADE RELACIONADA (responsabilidade de quem cuida de Produtos).
-// Quando o model Produto existir, registre-o aqui e defina a associacao
-// com Usuario para atender o requisito de "duas entidades relacionadas":
-//
-//   const Produto = require('./Produto');
-//   db.Produto = Produto;
-//   Usuario.hasMany(Produto, { foreignKey: 'usuarioId', as: 'produtos' });
-//   Produto.belongsTo(Usuario, { foreignKey: 'usuarioId', as: 'dono' });
-// -------------------------------------------------------------------
+Usuario.hasMany(Pedido, { foreignKey: 'compradorId', as: 'pedidos' });
+Pedido.belongsTo(Usuario, { foreignKey: 'compradorId', as: 'comprador' });
 
 module.exports = db;
