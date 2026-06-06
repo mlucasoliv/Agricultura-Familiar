@@ -7,5 +7,31 @@
     <li><strong>Tipo de conta:</strong> <%= usuario.tipo %></li>
   </ul>
   <p class="aviso">Esta e uma rota protegida: so e possivel visualiza-la autenticado.</p>
+  <div class="pedidos-container" style="margin-top: 30px; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <h2 style="color: #2c3e50; margin-bottom: 20px; text-align: left;">Pedidos Recebidos</h2>
+      
+      <% if (typeof pedidos !== 'undefined' && pedidos.length > 0) { %>
+          <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                  <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6; text-align: left;">
+                      <th style="padding: 12px;">ID do Pedido</th>
+                      <th style="padding: 12px;">Comprador</th>
+                      <th style="padding: 12px;">Quantidade</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <% pedidos.forEach(pedido => { %>
+                      <tr style="border-bottom: 1px solid #dee2e6; text-align: left;">
+                          <td style="padding: 12px;"><%= pedido.id %></td>
+                          <td style="padding: 12px;"><%= pedido.comprador ? pedido.comprador.nome : 'Não identificado' %></td>
+                          <td style="padding: 12px;"><%= pedido.quantidade %></td>
+                      </tr>
+                  <% }) %>
+              </tbody>
+          </table>
+      <% } else { %>
+          <p style="color: #7f8c8d; text-align: left;">Nenhum pedido recebido até o momento.</p>
+      <% } %>
+  </div>
 </section>
 <%- include('partials/footer') %>
