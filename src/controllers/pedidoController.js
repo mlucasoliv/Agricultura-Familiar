@@ -1,33 +1,29 @@
 const { Pedido, Usuario } = require('../models');
 
-const pedidoController = {
-    criarPedido: async (req, res) => {
-        try {
-            const { produtoId, quantidade } = req.body;
-            const compradorId = req.user.id;
+exports.criarPedido = async (req, res) => {
+    try {
+        const { produtoId, quantidade } = req.body;
+        const compradorId = req.usuario.id; // Alinhado com o req.usuario deles
 
-            await Pedido.create({
-                quantidade,
-                produtoId,
-                compradorId
-            });
+        await Pedido.create({
+            quantidade,
+            produtoId,
+            compradorId
+        });
 
-            res.redirect('/dashboard');
-        } catch (error) {
-            res.status(500).send('Erro ao processar o pedido.');
-        }
-    },
-
-    listarPedidos: async (req, res) => {
-        try {
-            const pedidos = await Pedido.findAll({
-                include: [{ model: Usuario, as: 'comprador' }]
-            });
-            res.render('dashboard', { pedidos });
-        } catch (error) {
-            res.status(500).send('Erro ao carregar a listagem de pedidos.');
-        }
+        res.redirect('/dashboard');
+    } catch (error) {
+        res.status(500).send('Erro ao processar o pedido.');
     }
 };
 
-module.exports = pedidoController;
+exports.listarPedidos = async (req, res) => {
+    try {
+        const pedidos = await Pedido.findAll({
+            include: [{ model: Usuario, as: 'comprador' }]
+        });
+        res.render('dashboard', { pedidos });
+    } catch (error) {
+        res.status(500).send('Erro ao carregar a listagem de pedidos.');
+    }
+};
