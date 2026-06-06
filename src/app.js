@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const { identificarUsuario } = require('./middleware/auth');
 const authRoutes = require('./routes/authRoutes');
 const indexRoutes = require('./routes/index');
+const pedidoRoutes = require('./routes/pedidoRoutes');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(identificarUsuario);
 // Rotas
 app.use('/', authRoutes);
 app.use('/', indexRoutes);
+app.use('/pedidos', pedidoRoutes);
 
 // Pagina nao encontrada
 app.use((req, res) => {

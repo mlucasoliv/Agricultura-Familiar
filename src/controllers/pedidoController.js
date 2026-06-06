@@ -3,7 +3,7 @@ const { Pedido, Usuario } = require('../models');
 exports.criarPedido = async (req, res) => {
     try {
         const { produtoId, quantidade } = req.body;
-        const compradorId = req.usuario.id; // Alinhado com o req.usuario deles
+        const compradorId = req.usuario.id; 
 
         await Pedido.create({
             quantidade,
