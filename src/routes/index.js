@@ -9,7 +9,13 @@ router.get('/', (req, res) => {
 
 // Pagina privada — so acessivel com login (rota protegida pelo middleware).
 router.get('/dashboard', protegerRota, (req, res) => {
-  res.render('dashboard', { usuario: req.usuario });
+  //  Criei a variável de pedidos aqui para alimentar a tabela do Commit 6
+  const pedidos = []; 
+
+  res.render('dashboard', { 
+    usuario: req.usuario,
+    pedidos: pedidos //  Enviei os pedidos para a tela junto com o usuário
+  });
 });
 
 module.exports = router;
