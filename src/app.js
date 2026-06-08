@@ -6,6 +6,7 @@ const { identificarUsuario } = require('./middleware/auth');
 const authRoutes = require('./routes/authRoutes');
 const indexRoutes = require('./routes/index');
 const produtoRoutes = require('./routes/produtoRoutes');
+const pedidoRoutes = require('./routes/pedidoRoutes');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(identificarUsuario);
 // Rotas
 app.use('/', authRoutes);
 app.use('/produtos', produtoRoutes);
+app.use('/pedidos', pedidoRoutes);
 app.use('/', indexRoutes);
 
 // Pagina nao encontrada

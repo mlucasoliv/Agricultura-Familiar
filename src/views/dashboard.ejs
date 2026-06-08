@@ -5,6 +5,11 @@
     ? `Sua vitrine tem ${meusProdutos} produto${meusProdutos === 1 ? '' : 's'}, com ${meusDisponiveis} disponíve${meusDisponiveis === 1 ? 'l' : 'is'} para consulta.`
     : `Encontre produtos disponíveis de ${totalProdutores} produtor${totalProdutores === 1 ? '' : 'es'} da agricultura familiar.`;
   const temDadosGrafico = produtosPorMes.some((item) => item.total > 0);
+  const classeStatusPedido = (status) => {
+    if (status === 'concluido') return 'badge-concluido';
+    if (status === 'cancelado') return 'badge-cancelado';
+    return 'badge-pendente';
+  };
 %>
 
 <section class="dashboard-hero">
@@ -178,6 +183,55 @@
       <% } else { %>
         <a class="btn-agro-outline" href="/produtos">Ir para produtos</a>
       <% } %>
+    </div>
+  <% } %>
+</section>
+
+<section class="dashboard-section mb-4">
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-2 mb-3">
+    <div>
+      <span class="secao-titulo">Pedidos recentes</span>
+      <p class="dashboard-section__hint">
+        <%= isProdutor ? 'Acompanhe as solicitacoes recebidas para seus produtos.' : 'Veja suas compras mais recentes no catalogo.' %>
+      </p>
+    </div>
+    <a class="btn-agro-outline align-self-start align-self-md-center" href="/pedidos">Ver todos</a>
+  </div>
+
+  <% if (pedidosRecentes && pedidosRecentes.length) { %>
+    <div class="table-responsive mt-2">
+      <table class="tabela-agro">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th class="d-none d-md-table-cell">Comprador</th>
+            <th>Qtd.</th>
+            <th>Status</th>
+            <th class="d-none d-lg-table-cell">Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% pedidosRecentes.forEach((pedido) => { %>
+            <tr>
+              <td>
+                <strong><%= pedido.produto ? pedido.produto.nome : 'Produto removido' %></strong>
+                <div class="tabela-agro__meta d-md-none">
+                  <%= pedido.comprador ? pedido.comprador.nome : 'Comprador nao identificado' %>
+                </div>
+              </td>
+              <td class="d-none d-md-table-cell"><%= pedido.comprador ? pedido.comprador.nome : '-' %></td>
+              <td><%= pedido.quantidade %></td>
+              <td><span class="badge-status <%= classeStatusPedido(pedido.status) %>"><%= pedido.status %></span></td>
+              <td class="d-none d-lg-table-cell"><%= pedido.createdAt ? pedido.createdAt.toLocaleDateString('pt-BR') : '-' %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <div class="empty-state">
+      <strong>Nenhum pedido registrado ainda.</strong>
+      <p><%= isProdutor ? 'Quando alguem solicitar seus produtos, os pedidos recentes aparecerao aqui.' : 'Quando voce fizer uma compra, ela aparecera neste resumo.' %></p>
     </div>
   <% } %>
 </section>
