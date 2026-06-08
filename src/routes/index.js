@@ -2,22 +2,23 @@ const express = require('express');
 const router = express.Router();
 const { protegerRota } = require('../middleware/auth');
 const { Produto, Usuario } = require('../models');
+const { listarPedidosDoUsuario } = require('../controllers/pedidoController');
 
 const mesesPtBr = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
 const produtosDestaque = [
-  { nome: 'Mel Silvestre 500g', produtor: 'João Silva', preco: 'R$ 85,00', emoji: '\u{1F36F}' },
+  { nome: 'Mel Silvestre 500g', produtor: 'Joao Silva', preco: 'R$ 85,00', emoji: '\u{1F36F}' },
   { nome: 'Queijo Artesanal 400g', produtor: 'Ana Lima', preco: 'R$ 120,00', emoji: '\u{1F9C0}' },
-  { nome: 'Farinha de Mandioca 1kg', produtor: 'José Alves', preco: 'R$ 18,00', emoji: '\u{1F33E}' },
+  { nome: 'Farinha de Mandioca 1kg', produtor: 'Jose Alves', preco: 'R$ 18,00', emoji: '\u{1F33E}' },
   { nome: 'Rapadura 500g', produtor: 'Maria Oliveira', preco: 'R$ 12,50', emoji: '\u{1F36C}' },
-  { nome: 'Cachaça Artesanal 1L', produtor: 'Pedro Santos', preco: 'R$ 45,00', emoji: '\u{1F376}' },
-  { nome: 'Feijão Verde 1kg', produtor: 'Rosa Mendes', preco: 'R$ 22,00', emoji: '\u{1FAD8}' },
+  { nome: 'Cachaca Artesanal 1L', produtor: 'Pedro Santos', preco: 'R$ 45,00', emoji: '\u{1F376}' },
+  { nome: 'Feijao Verde 1kg', produtor: 'Rosa Mendes', preco: 'R$ 22,00', emoji: '\u{1FAD8}' },
 ];
 
 const alertas = [
   { tipo: 'aviso', icone: '\u26A0\uFE0F', mensagem: '3 produtos com estoque baixo cadastrados esta semana.' },
-  { tipo: 'info', icone: '\u2139\uFE0F', mensagem: '2 novos produtores aguardam aprovação de cadastro.' },
-  { tipo: 'sucesso', icone: '\u2705', mensagem: 'Pedido #0042 foi concluído com sucesso.' },
+  { tipo: 'info', icone: '\u2139\uFE0F', mensagem: '2 novos produtores aguardam aprovacao de cadastro.' },
+  { tipo: 'sucesso', icone: '\u2705', mensagem: 'Pedido #0042 foi concluido com sucesso.' },
 ];
 
 function montarGraficoProdutos(produtos) {
@@ -52,10 +53,17 @@ function montarGraficoProdutos(produtos) {
 
 // Pagina inicial publica.
 router.get('/', (req, res) => {
-  res.render('index', { title: 'Início', activePage: 'inicio' });
+  res.render('index', { title: 'Inicio', activePage: 'inicio' });
 });
 
-// Pagina privada — so acessivel com login (rota protegida pelo middleware).
+router.get('/form-exemplo', (req, res) => {
+  res.render('pages/form-exemplo', {
+    title: 'Formulario Exemplo',
+    activePage: '',
+  });
+});
+
+// Pagina privada: so acessivel com login.
 router.get('/dashboard', protegerRota, async (req, res, next) => {
   try {
     const isProdutor = req.usuario.tipo === 'produtor';
@@ -100,6 +108,7 @@ router.get('/dashboard', protegerRota, async (req, res, next) => {
     }
 
     const produtosPorMes = montarGraficoProdutos(produtosParaGrafico);
+    const pedidosRecentes = await listarPedidosDoUsuario(req.usuario, 5);
 
     res.render('dashboard', {
       title: 'Dashboard',
@@ -114,20 +123,13 @@ router.get('/dashboard', protegerRota, async (req, res, next) => {
       meusIndisponiveis,
       produtosRecentes,
       produtosPorMes,
+      pedidosRecentes,
       produtosDestaque,
       alertas,
     });
   } catch (err) {
     next(err);
   }
-});
-
-router.get('/pedidos', protegerRota, (req, res) => {
-  res.render('pedidos', {
-    title: 'Pedidos',
-    activePage: 'pedidos',
-    pedidosPendentes: 7,
-  });
 });
 
 module.exports = router;

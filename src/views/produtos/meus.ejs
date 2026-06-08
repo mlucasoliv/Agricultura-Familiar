@@ -8,34 +8,36 @@
   <% if (produtos.length === 0) { %>
     <p class="aviso">Voce ainda nao cadastrou produtos.</p>
   <% } else { %>
-    <table class="tabela">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Preco</th>
-          <th>Unidade</th>
-          <th>Status</th>
-          <th>Acoes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% produtos.forEach(function (p) { %>
+    <div class="table-responsive mt-2">
+      <table class="tabela tabela-compacta">
+        <thead>
           <tr>
-            <td><%= p.nome %></td>
-            <td>R$ <%= Number(p.preco).toFixed(2) %></td>
-            <td><%= p.unidade %></td>
-            <td><%= p.disponivel ? 'Disponivel' : 'Indisponivel' %></td>
-            <td class="acoes-tabela">
-              <a href="/produtos/<%= p.id %>/editar">Editar</a>
-              <form action="/produtos/<%= p.id %>/excluir" method="POST" class="inline"
-                    onsubmit="return confirm('Remover este produto?');">
-                <button type="submit" class="link perigo">Excluir</button>
-              </form>
-            </td>
+            <th>Nome</th>
+            <th>Preco</th>
+            <th>Unidade</th>
+            <th>Status</th>
+            <th>Acoes</th>
           </tr>
-        <% }) %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% produtos.forEach(function (p) { %>
+            <tr>
+              <td><%= p.nome %></td>
+              <td>R$ <%= Number(p.preco).toFixed(2) %></td>
+              <td><%= p.unidade %></td>
+              <td><%= p.disponivel ? 'Disponivel' : 'Indisponivel' %></td>
+              <td class="acoes-tabela">
+                <a href="/produtos/<%= p.id %>/editar">Editar</a>
+                <form action="/produtos/<%= p.id %>/excluir" method="POST" class="inline"
+                      onsubmit="return confirm('Remover este produto?');">
+                  <button type="submit" class="link perigo">Excluir</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
   <% } %>
 </section>
 <%- include('../partials/footer') %>

@@ -1,9 +1,20 @@
 <%- include('partials/header') %>
+<%
+  const classeStatusPedido = (status) => {
+    if (status === 'concluido') return 'badge-concluido';
+    if (status === 'cancelado') return 'badge-cancelado';
+    return 'badge-pendente';
+  };
+%>
+
 <section class="dashboard-hero">
   <div>
     <p class="form-kicker">Pedidos</p>
-    <h2>Pedidos em preparação</h2>
-    <p>O módulo de pedidos será conectado nas próximas etapas. Por enquanto, há <strong><%= pedidosPendentes %></strong> pendências mockadas para manter o layout do painel.</p>
+    <h2><%= isProdutor ? 'Pedidos recebidos' : 'Meus pedidos' %></h2>
+    <p>
+      <%= isProdutor ? 'Acompanhe as solicitacoes feitas para os seus produtos.' : 'Acompanhe suas compras no catalogo da AgroFamilia.' %>
+      Ha <strong><%= pedidosPendentes %></strong> pedido<%= pedidosPendentes === 1 ? '' : 's' %> pendente<%= pedidosPendentes === 1 ? '' : 's' %>.
+    </p>
   </div>
 
   <div class="dashboard-actions">
@@ -12,9 +23,47 @@
 </section>
 
 <section class="dashboard-section">
-  <div class="empty-state">
-    <strong>Nenhum fluxo de pedido implementado ainda.</strong>
-    <p>Quando o model de pedidos estiver pronto, esta tela deve listar compras, vendas, status e ações do pedido.</p>
-  </div>
+  <% if (pedidos && pedidos.length) { %>
+    <div class="table-responsive mt-2">
+      <table class="tabela-agro">
+        <thead>
+          <tr>
+            <th>Pedido</th>
+            <th>Produto</th>
+            <th class="d-none d-md-table-cell">Comprador</th>
+            <th>Qtd.</th>
+            <th>Status</th>
+            <th class="d-none d-lg-table-cell">Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% pedidos.forEach((pedido) => { %>
+            <tr>
+              <td>#<%= String(pedido.id).padStart(4, '0') %></td>
+              <td>
+                <strong><%= pedido.produto ? pedido.produto.nome : 'Produto removido' %></strong>
+                <div class="tabela-agro__meta d-md-none">
+                  <%= pedido.comprador ? pedido.comprador.nome : 'Comprador nao identificado' %>
+                </div>
+              </td>
+              <td class="d-none d-md-table-cell"><%= pedido.comprador ? pedido.comprador.nome : '-' %></td>
+              <td><%= pedido.quantidade %></td>
+              <td><span class="badge-status <%= classeStatusPedido(pedido.status) %>"><%= pedido.status %></span></td>
+              <td class="d-none d-lg-table-cell"><%= pedido.createdAt ? pedido.createdAt.toLocaleDateString('pt-BR') : '-' %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <div class="empty-state">
+      <strong>Nenhum pedido registrado ainda.</strong>
+      <p><%= isProdutor ? 'Quando clientes solicitarem seus produtos, os pedidos aparecerao aqui.' : 'Escolha um produto disponivel para iniciar seu primeiro pedido.' %></p>
+      <% if (!isProdutor) { %>
+        <a class="btn-agro" href="/produtos">Ver produtos</a>
+      <% } %>
+    </div>
+  <% } %>
 </section>
+
 <%- include('partials/footer') %>
