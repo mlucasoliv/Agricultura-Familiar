@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+
+<section class="dashboard-hero perfil-hero">
+  <div>
+    <p class="form-kicker">Conta</p>
+    <h2>Meu perfil</h2>
+    <p>Dados principais da sua conta na AgroFamilia.</p>
+  </div>
+
+  <div class="dashboard-actions">
+    <% if (usuario.tipo === 'produtor') { %>
+      <a class="btn-agro-outline" href="/dashboard">Ir para o painel</a>
+    <% } else { %>
+      <a class="btn-agro-outline" href="/produtos">Ver produtos</a>
+    <% } %>
+  </div>
+</section>
+
+<section class="dashboard-section perfil-card">
+  <div class="perfil-avatar" aria-hidden="true">
+    <%= usuario.nome ? usuario.nome.charAt(0).toUpperCase() : 'A' %>
+  </div>
+
+  <div>
+    <h3><%= usuario.nome %></h3>
+    <p><%= usuario.tipo === 'produtor' ? 'Conta de produtor' : 'Conta de consumidor' %></p>
+  </div>
+
+  <ul class="dados perfil-dados">
+    <li>
+      <span>Nome</span>
+      <strong><%= usuario.nome %></strong>
+    </li>
+    <li>
+      <span>E-mail</span>
+      <strong><%= usuario.email %></strong>
+    </li>
+    <li>
+      <span>Tipo de conta</span>
+      <strong><%= usuario.tipo %></strong>
+    </li>
+  </ul>
+</section>
+
+<%- include('partials/footer') %>

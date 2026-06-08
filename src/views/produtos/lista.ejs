@@ -1,7 +1,10 @@
 <%- include('../partials/header') %>
 <section class="produtos">
   <div class="produtos-topo">
-    <h1>Produtos</h1>
+    <div>
+      <p class="form-kicker">Catalogo local</p>
+      <h1>Produtos</h1>
+    </div>
     <% if (usuario && usuario.tipo === 'produtor') { %>
       <a class="botao" href="/produtos/novo">+ Novo produto</a>
     <% } %>
@@ -21,11 +24,23 @@
     <ul class="cards">
       <% produtos.forEach(function (p) { %>
         <li class="card<%= p.disponivel ? '' : ' indisponivel' %>">
-          <h2><a href="/produtos/<%= p.id %>"><%= p.nome %></a></h2>
-          <p class="preco">R$ <%= Number(p.preco).toFixed(2) %> / <%= p.unidade %></p>
-          <% if (p.descricao) { %><p class="desc"><%= p.descricao %></p><% } %>
-          <p class="produtor">Produtor: <%= p.dono ? p.dono.nome : 'Desconhecido' %></p>
-          <% if (!p.disponivel) { %><span class="tag">Indisponivel</span><% } %>
+          <div class="card__media">
+            <% if (p.imagemUrl) { %>
+              <img src="<%= p.imagemUrl %>" alt="<%= p.nome %>">
+            <% } else { %>
+              <span aria-hidden="true"><%= p.disponivel ? '🥬' : '📦' %></span>
+            <% } %>
+          </div>
+          <div class="card__body">
+            <span class="tag <%= p.disponivel ? 'tag-disponivel' : 'tag-indisponivel' %>"><%= p.disponivel ? 'Disponivel' : 'Indisponivel' %></span>
+            <h2><a href="/produtos/<%= p.id %>"><%= p.nome %></a></h2>
+            <p class="produtor">Por <%= p.dono ? p.dono.nome : 'produtor desconhecido' %></p>
+            <% if (p.descricao) { %><p class="desc"><%= p.descricao %></p><% } %>
+          </div>
+          <div class="card__footer">
+            <p class="preco"><%= Number(p.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %> <span>/ <%= p.unidade %></span></p>
+            <a class="btn-agro-outline" href="/produtos/<%= p.id %>">Ver produto</a>
+          </div>
         </li>
       <% }) %>
     </ul>

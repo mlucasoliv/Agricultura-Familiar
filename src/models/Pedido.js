@@ -19,10 +19,28 @@ Pedido.init(
       defaultValue: 'pendente',
       validate: {
         isIn: {
-          args: [['pendente', 'concluido', 'cancelado']],
+          args: [['pendente', 'em_preparacao', 'a_caminho', 'entregue', 'concluido', 'cancelado', 'reportado']],
           msg: 'Status de pedido invalido.',
         },
       },
+    },
+    recebimentoConfirmado: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    reportado: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    reportMotivo: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    reportadoEm: {
+      type: DataTypes.DATE,
+      allowNull: true,
     },
     produtoId: {
       type: DataTypes.INTEGER,

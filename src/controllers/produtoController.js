@@ -46,11 +46,12 @@ exports.mostrarNovo = (req, res) => {
 
 // Cria um produto vinculado ao produtor logado.
 exports.criar = async (req, res) => {
-  const { nome, descricao, preco, unidade, disponivel } = req.body;
+  const { nome, descricao, preco, unidade, disponivel, imagemUrl } = req.body;
   try {
     await Produto.create({
       nome,
       descricao,
+      imagemUrl: resolverImagem(req, imagemUrl),
       preco,
       unidade,
       disponivel: disponivel === 'on' || disponivel === 'true',
@@ -63,7 +64,7 @@ exports.criar = async (req, res) => {
       activePage: 'produtos',
       titulo: 'Novo produto',
       acao: '/produtos',
-      produto: { nome, descricao, preco, unidade },
+      produto: { nome, descricao, preco, unidade, imagemUrl },
       erro: traduzErro(err),
     });
   }
@@ -101,11 +102,12 @@ exports.atualizar = async (req, res) => {
   const produto = await buscarDoDono(req);
   if (!produto) return res.status(404).render('404');
 
-  const { nome, descricao, preco, unidade, disponivel } = req.body;
+  const { nome, descricao, preco, unidade, disponivel, imagemUrl } = req.body;
   try {
     await produto.update({
       nome,
       descricao,
+      imagemUrl: resolverImagem(req, imagemUrl, produto.imagemUrl),
       preco,
       unidade,
       disponivel: disponivel === 'on' || disponivel === 'true',
@@ -117,7 +119,7 @@ exports.atualizar = async (req, res) => {
       activePage: 'produtos',
       titulo: 'Editar produto',
       acao: `/produtos/${produto.id}`,
-      produto: { id: produto.id, nome, descricao, preco, unidade },
+      produto: { id: produto.id, nome, descricao, preco, unidade, imagemUrl },
       erro: traduzErro(err),
     });
   }
@@ -143,4 +145,17 @@ function traduzErro(err) {
     return err.errors[0].message;
   }
   return 'Nao foi possivel salvar o produto.';
+}
+
+function normalizarImagemUrl(url) {
+  return url && url.trim() ? url.trim() : null;
+}
+
+function resolverImagem(req, imagemUrl, imagemAtual = null) {
+  if (req.file) {
+    return `/img/produtos/${req.file.filename}`;
+  }
+
+  const imagemInformada = normalizarImagemUrl(imagemUrl);
+  return imagemInformada || imagemAtual;
 }

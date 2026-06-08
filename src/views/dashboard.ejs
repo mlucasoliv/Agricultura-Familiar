@@ -6,10 +6,23 @@
     : `Encontre produtos disponíveis de ${totalProdutores} produtor${totalProdutores === 1 ? '' : 'es'} da agricultura familiar.`;
   const temDadosGrafico = produtosPorMes.some((item) => item.total > 0);
   const classeStatusPedido = (status) => {
+    if (status === 'em_preparacao') return 'badge-preparacao';
+    if (status === 'a_caminho') return 'badge-caminho';
+    if (status === 'entregue') return 'badge-entregue';
     if (status === 'concluido') return 'badge-concluido';
     if (status === 'cancelado') return 'badge-cancelado';
+    if (status === 'reportado') return 'badge-reportado';
     return 'badge-pendente';
   };
+  const labelStatusPedido = (status) => ({
+    pendente: 'Pendente',
+    em_preparacao: 'Em preparacao',
+    a_caminho: 'A caminho',
+    entregue: 'Entregue',
+    concluido: 'Concluido',
+    cancelado: 'Cancelado',
+    reportado: 'Reportado',
+  }[status] || 'Pendente');
 %>
 
 <section class="dashboard-hero">
@@ -153,7 +166,7 @@
                 </div>
               </td>
               <td class="d-none d-md-table-cell"><%= produto.dono ? produto.dono.nome : usuario.nome %></td>
-              <td><strong>R$ <%= Number(produto.preco).toFixed(2).replace('.', ',') %></strong> / <%= produto.unidade %></td>
+              <td><strong><%= Number(produto.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></strong> / <%= produto.unidade %></td>
               <td class="d-none d-sm-table-cell">
                 <% if (produto.disponivel) { %>
                   <span class="badge-status badge-concluido">Disponível</span>
@@ -221,7 +234,7 @@
               </td>
               <td class="d-none d-md-table-cell"><%= pedido.comprador ? pedido.comprador.nome : '-' %></td>
               <td><%= pedido.quantidade %></td>
-              <td><span class="badge-status <%= classeStatusPedido(pedido.status) %>"><%= pedido.status %></span></td>
+              <td><span class="badge-status <%= classeStatusPedido(pedido.status) %>"><%= labelStatusPedido(pedido.status) %></span></td>
               <td class="d-none d-lg-table-cell"><%= pedido.createdAt ? pedido.createdAt.toLocaleDateString('pt-BR') : '-' %></td>
             </tr>
           <% }) %>
@@ -277,23 +290,34 @@
     </div>
   </div>
 
-  <div class="row g-3 mt-1">
-    <% produtosDestaque.forEach((produto) => { %>
-      <div class="col-12 col-sm-6 col-lg-4">
-        <div class="card-resumo produto-destaque-card h-100 d-flex flex-column justify-content-between">
-          <div>
-            <div class="card-icone mb-2"><%= produto.emoji %></div>
-            <h6 class="mb-1"><%= produto.nome %></h6>
-            <small>Por: <%= produto.produtor %></small>
-          </div>
-          <div class="produto-destaque-card__rodape">
-            <span><%= produto.preco %></span>
-            <button class="btn-agro-outline" disabled type="button">Ver mais</button>
+  <% if (produtosDestaque && produtosDestaque.length) { %>
+    <div class="row g-3 mt-1">
+      <% produtosDestaque.forEach((produto) => { %>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card-resumo produto-destaque-card h-100 d-flex flex-column justify-content-between">
+            <div>
+              <% if (produto.imagemUrl) { %>
+                <img class="produto-destaque-card__img mb-2" src="<%= produto.imagemUrl %>" alt="<%= produto.nome %>">
+              <% } else { %>
+                <div class="card-icone mb-2">🥬</div>
+              <% } %>
+              <h6 class="mb-1"><%= produto.nome %></h6>
+              <small>Por: <%= produto.dono ? produto.dono.nome : 'Produtor desconhecido' %></small>
+            </div>
+            <div class="produto-destaque-card__rodape">
+              <span><%= Number(produto.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></span>
+              <a class="btn-agro-outline" href="/produtos/<%= produto.id %>">Ver produto</a>
+            </div>
           </div>
         </div>
-      </div>
-    <% }) %>
-  </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="empty-state">
+      <strong>Nenhum produto disponivel para destaque.</strong>
+      <p>Cadastre produtos disponiveis para que eles aparecam nesta area.</p>
+    </div>
+  <% } %>
 </section>
 
 <%- include('partials/footer') %>

@@ -6,21 +6,6 @@ const { listarPedidosDoUsuario } = require('../controllers/pedidoController');
 
 const mesesPtBr = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
-const produtosDestaque = [
-  { nome: 'Mel Silvestre 500g', produtor: 'Joao Silva', preco: 'R$ 85,00', emoji: '\u{1F36F}' },
-  { nome: 'Queijo Artesanal 400g', produtor: 'Ana Lima', preco: 'R$ 120,00', emoji: '\u{1F9C0}' },
-  { nome: 'Farinha de Mandioca 1kg', produtor: 'Jose Alves', preco: 'R$ 18,00', emoji: '\u{1F33E}' },
-  { nome: 'Rapadura 500g', produtor: 'Maria Oliveira', preco: 'R$ 12,50', emoji: '\u{1F36C}' },
-  { nome: 'Cachaca Artesanal 1L', produtor: 'Pedro Santos', preco: 'R$ 45,00', emoji: '\u{1F376}' },
-  { nome: 'Feijao Verde 1kg', produtor: 'Rosa Mendes', preco: 'R$ 22,00', emoji: '\u{1FAD8}' },
-];
-
-const alertas = [
-  { tipo: 'aviso', icone: '\u26A0\uFE0F', mensagem: '3 produtos com estoque baixo cadastrados esta semana.' },
-  { tipo: 'info', icone: '\u2139\uFE0F', mensagem: '2 novos produtores aguardam aprovacao de cadastro.' },
-  { tipo: 'sucesso', icone: '\u2705', mensagem: 'Pedido #0042 foi concluido com sucesso.' },
-];
-
 function montarGraficoProdutos(produtos) {
   const hoje = new Date();
   const meses = [];
@@ -63,10 +48,23 @@ router.get('/form-exemplo', (req, res) => {
   });
 });
 
+router.get('/perfil', protegerRota, (req, res) => {
+  res.render('perfil', {
+    title: 'Meu perfil',
+    activePage: 'perfil',
+    usuario: req.usuario,
+  });
+});
+
 // Pagina privada: so acessivel com login.
 router.get('/dashboard', protegerRota, async (req, res, next) => {
   try {
     const isProdutor = req.usuario.tipo === 'produtor';
+
+    if (!isProdutor) {
+      return res.redirect('/produtos');
+    }
+
     const totalProdutos = await Produto.count();
     const totalDisponiveis = await Produto.count({ where: { disponivel: true } });
     const totalProdutores = await Usuario.count({ where: { tipo: 'produtor' } });
@@ -109,6 +107,12 @@ router.get('/dashboard', protegerRota, async (req, res, next) => {
 
     const produtosPorMes = montarGraficoProdutos(produtosParaGrafico);
     const pedidosRecentes = await listarPedidosDoUsuario(req.usuario, 5);
+    const produtosDestaque = await Produto.findAll({
+      where: { disponivel: true },
+      include: [{ model: Usuario, as: 'dono', attributes: ['nome'] }],
+      order: [['createdAt', 'DESC']],
+      limit: 6,
+    });
 
     res.render('dashboard', {
       title: 'Dashboard',
@@ -125,7 +129,7 @@ router.get('/dashboard', protegerRota, async (req, res, next) => {
       produtosPorMes,
       pedidosRecentes,
       produtosDestaque,
-      alertas,
+      alertas: [],
     });
   } catch (err) {
     next(err);

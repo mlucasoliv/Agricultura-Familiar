@@ -13,6 +13,7 @@
         <thead>
           <tr>
             <th>Nome</th>
+            <th>Imagem</th>
             <th>Preco</th>
             <th>Unidade</th>
             <th>Status</th>
@@ -23,7 +24,14 @@
           <% produtos.forEach(function (p) { %>
             <tr>
               <td><%= p.nome %></td>
-              <td>R$ <%= Number(p.preco).toFixed(2) %></td>
+              <td>
+                <% if (p.imagemUrl) { %>
+                  <img class="produto-miniatura" src="<%= p.imagemUrl %>" alt="<%= p.nome %>">
+                <% } else { %>
+                  <span class="produto-miniatura produto-miniatura--vazia">🥬</span>
+                <% } %>
+              </td>
+              <td><%= Number(p.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></td>
               <td><%= p.unidade %></td>
               <td><%= p.disponivel ? 'Disponivel' : 'Indisponivel' %></td>
               <td class="acoes-tabela">

@@ -2,13 +2,34 @@
 <section class="form-card">
   <h1><%= titulo %></h1>
   <% if (erro) { %><p class="erro"><%= erro %></p><% } %>
-  <form action="<%= acao %>" method="POST">
+  <form action="<%= acao %>" method="POST" enctype="multipart/form-data">
     <label>Nome
       <input type="text" name="nome" value="<%= produto.nome || '' %>" required />
     </label>
     <label>Descricao
       <textarea name="descricao" rows="3"><%= produto.descricao || '' %></textarea>
     </label>
+    <label>Enviar imagem do produto
+      <input type="file" name="imagemArquivo" accept="image/*" />
+      <small class="form-dica">Use JPG, PNG ou WebP de ate 2MB. O envio substitui a imagem atual.</small>
+    </label>
+    <label>Ou cole uma URL de imagem
+      <input
+        type="url"
+        name="imagemUrl"
+        placeholder="https://exemplo.com/imagem-do-produto.jpg"
+        value="<%= produto.imagemUrl || '' %>"
+      />
+      <small class="form-dica">Opcional. Use quando preferir uma imagem hospedada fora do projeto.</small>
+    </label>
+    <div class="produto-imagem-preview <%= produto.imagemUrl ? '' : 'is-empty' %>">
+      <% if (produto.imagemUrl) { %>
+        <img src="<%= produto.imagemUrl %>" alt="Preview de <%= produto.nome || 'produto' %>">
+      <% } else { %>
+        <span>🥬</span>
+        <small>Preview da imagem</small>
+      <% } %>
+    </div>
     <label>Preco (R$)
       <input type="number" name="preco" step="0.01" min="0"
              value="<%= produto.preco || '' %>" required />

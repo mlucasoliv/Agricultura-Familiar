@@ -16,6 +16,17 @@ Produto.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    imagemUrl: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      validate: {
+        isUrlOrEmpty(value) {
+          if (value && !/^https?:\/\/.+/i.test(value) && !/^\/img\/produtos\/.+/i.test(value)) {
+            throw new Error('Informe uma URL de imagem valida.');
+          }
+        },
+      },
+    },
     preco: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
@@ -34,6 +45,10 @@ Produto.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
+    },
+    usuarioId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
   },
   {

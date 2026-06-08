@@ -1,9 +1,23 @@
 <%- include('partials/header') %>
 <%
-  const classeStatusPedido = (status) => {
-    if (status === 'concluido') return 'badge-concluido';
-    if (status === 'cancelado') return 'badge-cancelado';
-    return 'badge-pendente';
+  const statusInfo = {
+    pendente: { label: 'Pendente', classe: 'badge-pendente' },
+    em_preparacao: { label: 'Em preparacao', classe: 'badge-preparacao' },
+    a_caminho: { label: 'A caminho', classe: 'badge-caminho' },
+    entregue: { label: 'Entregue', classe: 'badge-entregue' },
+    concluido: { label: 'Concluido', classe: 'badge-concluido' },
+    cancelado: { label: 'Cancelado', classe: 'badge-cancelado' },
+    reportado: { label: 'Reportado', classe: 'badge-reportado' },
+  };
+
+  const infoStatus = (status) => statusInfo[status] || statusInfo.pendente;
+  const statusProdutor = ['pendente', 'em_preparacao', 'a_caminho', 'entregue', 'cancelado'];
+  const acompanhamentoPedido = (pedido) => {
+    if (pedido.status === 'em_preparacao') return 'Proximo: A caminho';
+    if (pedido.status === 'a_caminho') return 'Cliente pode confirmar recebimento';
+    if (pedido.status === 'entregue') return 'Aguardando confirmacao do cliente';
+    if (pedido.status === 'reportado') return 'Cliente reportou problema';
+    return '';
   };
 %>
 
@@ -12,44 +26,85 @@
     <p class="form-kicker">Pedidos</p>
     <h2><%= isProdutor ? 'Pedidos recebidos' : 'Meus pedidos' %></h2>
     <p>
-      <%= isProdutor ? 'Acompanhe as solicitacoes feitas para os seus produtos.' : 'Acompanhe suas compras no catalogo da AgroFamilia.' %>
-      Ha <strong><%= pedidosPendentes %></strong> pedido<%= pedidosPendentes === 1 ? '' : 's' %> pendente<%= pedidosPendentes === 1 ? '' : 's' %>.
+      <%= isProdutor ? 'Atualize o andamento dos pedidos e acompanhe reportes dos clientes.' : 'Acompanhe suas compras, confirme o recebimento ou reporte problemas.' %>
+      Ha <strong><%= pedidosPendentes %></strong> pedido<%= pedidosPendentes === 1 ? '' : 's' %> em aberto.
     </p>
   </div>
 
   <div class="dashboard-actions">
-    <a class="btn-agro-outline" href="/dashboard">Voltar ao painel</a>
+    <% if (isProdutor) { %>
+      <a class="btn-agro-outline" href="/dashboard">Voltar ao painel</a>
+    <% } else { %>
+      <a class="btn-agro-outline" href="/produtos">Ver produtos</a>
+    <% } %>
   </div>
 </section>
 
 <section class="dashboard-section">
   <% if (pedidos && pedidos.length) { %>
     <div class="table-responsive mt-2">
-      <table class="tabela-agro">
+      <table class="tabela-agro pedidos-tabela">
         <thead>
           <tr>
             <th>Pedido</th>
             <th>Produto</th>
-            <th class="d-none d-md-table-cell">Comprador</th>
+            <th>Comprador</th>
             <th>Qtd.</th>
             <th>Status</th>
-            <th class="d-none d-lg-table-cell">Data</th>
+            <th>Acompanhamento</th>
+            <th>Data</th>
+            <th>Acoes</th>
           </tr>
         </thead>
         <tbody>
           <% pedidos.forEach((pedido) => { %>
+            <% const statusAtual = infoStatus(pedido.status); %>
             <tr>
-              <td>#<%= String(pedido.id).padStart(4, '0') %></td>
-              <td>
+              <td data-label="Pedido">#<%= String(pedido.id).padStart(4, '0') %></td>
+              <td data-label="Produto">
                 <strong><%= pedido.produto ? pedido.produto.nome : 'Produto removido' %></strong>
-                <div class="tabela-agro__meta d-md-none">
-                  <%= pedido.comprador ? pedido.comprador.nome : 'Comprador nao identificado' %>
-                </div>
+                <% if (pedido.reportado && pedido.reportMotivo) { %>
+                  <div class="pedido-report-motivo">Reporte: <%= pedido.reportMotivo %></div>
+                <% } %>
               </td>
-              <td class="d-none d-md-table-cell"><%= pedido.comprador ? pedido.comprador.nome : '-' %></td>
-              <td><%= pedido.quantidade %></td>
-              <td><span class="badge-status <%= classeStatusPedido(pedido.status) %>"><%= pedido.status %></span></td>
-              <td class="d-none d-lg-table-cell"><%= pedido.createdAt ? pedido.createdAt.toLocaleDateString('pt-BR') : '-' %></td>
+              <td data-label="Comprador"><%= pedido.comprador ? pedido.comprador.nome : '-' %></td>
+              <td data-label="Qtd."><%= pedido.quantidade %></td>
+              <td data-label="Status"><span class="badge-status <%= statusAtual.classe %>"><%= statusAtual.label %></span></td>
+              <td data-label="Acompanhamento">
+                <% const acompanhamento = acompanhamentoPedido(pedido); %>
+                <% if (acompanhamento) { %>
+                  <span class="pedido-acompanhamento"><%= acompanhamento %></span>
+                <% } else { %>
+                  <span class="tabela-agro__meta">-</span>
+                <% } %>
+              </td>
+              <td data-label="Data"><%= pedido.createdAt ? pedido.createdAt.toLocaleDateString('pt-BR') : '-' %></td>
+              <td data-label="Acoes">
+                <% if (isProdutor) { %>
+                  <form class="pedido-status-form" action="/pedidos/<%= pedido.id %>/status" method="POST">
+                    <select name="status" aria-label="Atualizar status do pedido #<%= pedido.id %>">
+                      <% statusProdutor.forEach((statusOpcao) => { %>
+                        <option value="<%= statusOpcao %>" <%= pedido.status === statusOpcao ? 'selected' : '' %>><%= infoStatus(statusOpcao).label %></option>
+                      <% }) %>
+                    </select>
+                    <button class="btn-agro-outline" type="submit">Atualizar</button>
+                  </form>
+                <% } else { %>
+                  <div class="pedido-cliente-acoes">
+                    <% if (['a_caminho', 'entregue'].includes(pedido.status)) { %>
+                      <form action="/pedidos/<%= pedido.id %>/confirmar-recebimento" method="POST">
+                        <button class="btn-agro" type="submit">Recebi</button>
+                      </form>
+                    <% } %>
+                    <% if (!['concluido', 'cancelado', 'reportado'].includes(pedido.status)) { %>
+                      <form class="pedido-report-form" action="/pedidos/<%= pedido.id %>/reportar" method="POST">
+                        <input type="text" name="motivo" placeholder="Nao recebi ou tive problema" aria-label="Motivo do reporte">
+                        <button class="btn-agro-outline" type="submit">Reportar</button>
+                      </form>
+                    <% } %>
+                  </div>
+                <% } %>
+              </td>
             </tr>
           <% }) %>
         </tbody>

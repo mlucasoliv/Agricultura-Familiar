@@ -35,9 +35,11 @@
           <li class="nav-item">
             <a class="nav-link <%= currentPage === 'pedidos' ? 'active' : '' %>" href="/pedidos" <%= currentPage === 'pedidos' ? 'aria-current="page"' : '' %>>Pedidos</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link <%= currentPage === 'dashboard' ? 'active' : '' %>" href="/dashboard" <%= currentPage === 'dashboard' ? 'aria-current="page"' : '' %>>Painel</a>
-          </li>
+          <% if (loggedUser.tipo === 'produtor') { %>
+            <li class="nav-item">
+              <a class="nav-link <%= currentPage === 'dashboard' ? 'active' : '' %>" href="/dashboard" <%= currentPage === 'dashboard' ? 'aria-current="page"' : '' %>>Painel</a>
+            </li>
+          <% } %>
         <% } %>
       </ul>
 

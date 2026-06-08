@@ -1,7 +1,39 @@
     </main>
   </div>
   <footer class="rodape">
-    <small>AgroFamília &middot; Plataforma acadêmica de venda direta da agricultura familiar</small>
+    <div class="rodape__grid">
+      <div>
+        <strong>AgroFamilia</strong>
+        <p>Venda direta entre agricultura familiar e consumidores locais.</p>
+      </div>
+      <div>
+        <span>Plataforma</span>
+        <a href="/">Inicio</a>
+        <a href="/produtos">Produtos</a>
+        <a href="/login">Entrar</a>
+      </div>
+      <div>
+        <span>Para produtores</span>
+        <% if (usuario && usuario.tipo === 'produtor') { %>
+          <a href="/dashboard">Painel</a>
+          <a href="/produtos/novo">Cadastrar produto</a>
+        <% } else if (!usuario) { %>
+          <a href="/cadastro">Criar conta de produtor</a>
+          <a href="/login">Entrar no painel</a>
+        <% } else { %>
+          <a href="/produtos">Ver produtos locais</a>
+        <% } %>
+      </div>
+      <div>
+        <span>Contato</span>
+        <p>Projeto academico de marketplace rural.</p>
+        <div class="rodape__social" aria-label="Redes sociais">
+          <span>f</span>
+          <span>in</span>
+          <span>@</span>
+        </div>
+      </div>
+    </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/main.js"></script>
