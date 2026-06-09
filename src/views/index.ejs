@@ -6,14 +6,14 @@
     <p>Encontre alimentos frescos, fortaleça pequenos produtores e acompanhe tudo em uma plataforma simples.</p>
     <% if (!usuario) { %>
       <div class="acoes">
-        <a class="botao" href="/cadastro">Criar conta gratis</a>
-        <a class="botao secundario" href="/login">Ja tenho conta</a>
+        <a class="btn-agro" href="/cadastro">Criar conta gratis</a>
+        <a class="btn-agro-outline" href="/login">Ja tenho conta</a>
       </div>
     <% } else { %>
       <% if (usuario.tipo === 'produtor') { %>
-        <a class="botao" href="/dashboard">Ir para o painel</a>
+        <a class="btn-agro" href="/dashboard">Ir para o painel</a>
       <% } else { %>
-        <a class="botao" href="/produtos">Ver produtos</a>
+        <a class="btn-agro" href="/produtos">Ver produtos</a>
       <% } %>
     <% } %>
   </div>

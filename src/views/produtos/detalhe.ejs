@@ -1,10 +1,10 @@
 <%- include('../partials/header') %>
 <section class="produto-detalhe">
-  <div class="produto-detalhe__media" aria-hidden="true">
+  <div class="produto-detalhe__media">
     <% if (produto.imagemUrl) { %>
       <img src="<%= produto.imagemUrl %>" alt="<%= produto.nome %>">
     <% } else { %>
-      <span>🥬</span>
+      <img src="/img/produto-default.svg" alt="Imagem padrao do produto">
     <% } %>
   </div>
 
@@ -17,7 +17,7 @@
     <% } %>
 
     <div class="produtor-box">
-      <span>Sobre o produtor</span>
+      <img src="/img/produto-default.svg" alt="Imagem padrao do produto">
       <strong><%= produto.dono ? produto.dono.nome : 'Produtor desconhecido' %></strong>
       <p>Agricultura familiar local com venda direta pela AgroFamilia.</p>
     </div>

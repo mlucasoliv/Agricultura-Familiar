@@ -1,0 +1,33 @@
+<%
+  globalThis.agroStatusHelpers = globalThis.agroStatusHelpers || {};
+
+  globalThis.agroStatusHelpers.classeStatusPedido = (status) => {
+    const mapa = {
+      em_preparacao: 'badge-preparacao',
+      a_caminho: 'badge-caminho',
+      entregue: 'badge-entregue',
+      concluido: 'badge-concluido',
+      cancelado: 'badge-cancelado',
+      reportado: 'badge-reportado',
+    };
+    return mapa[status] || 'badge-pendente';
+  };
+
+  globalThis.agroStatusHelpers.labelStatusPedido = (status) => ({
+    pendente: 'Pendente',
+    em_preparacao: 'Em preparação',
+    a_caminho: 'A caminho',
+    entregue: 'Entregue',
+    concluido: 'Concluído',
+    cancelado: 'Cancelado',
+    reportado: 'Reportado',
+  }[status] || 'Pendente');
+
+  globalThis.agroStatusHelpers.acompanhamentoPedido = (pedido) => {
+    if (pedido.status === 'em_preparacao') return 'Próximo: A caminho';
+    if (pedido.status === 'a_caminho') return 'Cliente pode confirmar recebimento';
+    if (pedido.status === 'entregue') return 'Aguardando confirmação do cliente';
+    if (pedido.status === 'reportado') return 'Cliente reportou um problema';
+    return '';
+  };
+%>

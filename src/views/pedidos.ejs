@@ -1,24 +1,7 @@
 <%- include('partials/header') %>
+<%- include('partials/status-helpers') %>
 <%
-  const statusInfo = {
-    pendente: { label: 'Pendente', classe: 'badge-pendente' },
-    em_preparacao: { label: 'Em preparacao', classe: 'badge-preparacao' },
-    a_caminho: { label: 'A caminho', classe: 'badge-caminho' },
-    entregue: { label: 'Entregue', classe: 'badge-entregue' },
-    concluido: { label: 'Concluido', classe: 'badge-concluido' },
-    cancelado: { label: 'Cancelado', classe: 'badge-cancelado' },
-    reportado: { label: 'Reportado', classe: 'badge-reportado' },
-  };
-
-  const infoStatus = (status) => statusInfo[status] || statusInfo.pendente;
   const statusProdutor = ['pendente', 'em_preparacao', 'a_caminho', 'entregue', 'cancelado'];
-  const acompanhamentoPedido = (pedido) => {
-    if (pedido.status === 'em_preparacao') return 'Proximo: A caminho';
-    if (pedido.status === 'a_caminho') return 'Cliente pode confirmar recebimento';
-    if (pedido.status === 'entregue') return 'Aguardando confirmacao do cliente';
-    if (pedido.status === 'reportado') return 'Cliente reportou problema';
-    return '';
-  };
 %>
 
 <section class="dashboard-hero">
@@ -58,7 +41,6 @@
         </thead>
         <tbody>
           <% pedidos.forEach((pedido) => { %>
-            <% const statusAtual = infoStatus(pedido.status); %>
             <tr>
               <td data-label="Pedido">#<%= String(pedido.id).padStart(4, '0') %></td>
               <td data-label="Produto">
@@ -69,9 +51,9 @@
               </td>
               <td data-label="Comprador"><%= pedido.comprador ? pedido.comprador.nome : '-' %></td>
               <td data-label="Qtd."><%= pedido.quantidade %></td>
-              <td data-label="Status"><span class="badge-status <%= statusAtual.classe %>"><%= statusAtual.label %></span></td>
+              <td data-label="Status"><span class="badge-status <%= globalThis.agroStatusHelpers.classeStatusPedido(pedido.status) %>"><%= globalThis.agroStatusHelpers.labelStatusPedido(pedido.status) %></span></td>
               <td data-label="Acompanhamento">
-                <% const acompanhamento = acompanhamentoPedido(pedido); %>
+                <% const acompanhamento = globalThis.agroStatusHelpers.acompanhamentoPedido(pedido); %>
                 <% if (acompanhamento) { %>
                   <span class="pedido-acompanhamento"><%= acompanhamento %></span>
                 <% } else { %>
@@ -84,7 +66,7 @@
                   <form class="pedido-status-form" action="/pedidos/<%= pedido.id %>/status" method="POST">
                     <select name="status" aria-label="Atualizar status do pedido #<%= pedido.id %>">
                       <% statusProdutor.forEach((statusOpcao) => { %>
-                        <option value="<%= statusOpcao %>" <%= pedido.status === statusOpcao ? 'selected' : '' %>><%= infoStatus(statusOpcao).label %></option>
+                        <option value="<%= statusOpcao %>" <%= pedido.status === statusOpcao ? 'selected' : '' %>><%= globalThis.agroStatusHelpers.labelStatusPedido(statusOpcao) %></option>
                       <% }) %>
                     </select>
                     <button class="btn-agro-outline" type="submit">Atualizar</button>

@@ -6,13 +6,16 @@
       <h1>Produtos</h1>
     </div>
     <% if (usuario && usuario.tipo === 'produtor') { %>
-      <a class="botao" href="/produtos/novo">+ Novo produto</a>
+      <div class="produtos-topo__acoes">
+        <a class="btn-agro-outline" href="/produtos/meus">Gerenciar produtos</a>
+        <a class="btn-agro" href="/produtos/novo">+ Novo produto</a>
+      </div>
     <% } %>
   </div>
 
   <form class="busca" action="/produtos" method="GET">
     <input type="search" name="q" placeholder="Buscar por nome..." value="<%= busca %>" />
-    <button type="submit" class="botao secundario">Buscar</button>
+    <button type="submit" class="btn-agro-outline">Buscar</button>
     <% if (busca) { %><a class="alt" href="/produtos">Limpar</a><% } %>
   </form>
 
@@ -28,7 +31,7 @@
             <% if (p.imagemUrl) { %>
               <img src="<%= p.imagemUrl %>" alt="<%= p.nome %>">
             <% } else { %>
-              <span aria-hidden="true"><%= p.disponivel ? '🥬' : '📦' %></span>
+              <img src="/img/produto-default.svg" alt="Imagem padrao do produto">
             <% } %>
           </div>
           <div class="card__body">

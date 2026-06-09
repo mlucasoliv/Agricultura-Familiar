@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="title desc">
+  <title id="title">Imagem padrao do produto</title>
+  <desc id="desc">Ilustracao simples de uma cesta com alimentos frescos.</desc>
+  <defs>
+    <linearGradient id="bg" x1="24" y1="18" x2="174" y2="184" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d8f3dc"/>
+      <stop offset="1" stop-color="#fff3bf"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="18" fill="url(#bg)"/>
+  <path d="M53 92h94l-12 57H65L53 92Z" fill="#b7793f"/>
+  <path d="M64 92c3-31 69-31 72 0" fill="none" stroke="#2d6a4f" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="79" cy="86" r="18" fill="#f2c94c"/>
+  <circle cx="104" cy="82" r="20" fill="#52b788"/>
+  <circle cx="128" cy="88" r="16" fill="#40916c"/>
+  <path d="M92 65c-12-19-2-33 18-36 5 18-2 31-18 36Z" fill="#2d6a4f"/>
+  <path d="M75 113h50M71 132h58" stroke="#fff8dc" stroke-width="8" stroke-linecap="round"/>
+</svg>

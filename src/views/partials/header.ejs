@@ -12,8 +12,4 @@
 </head>
 <body>
   <%- include('navbar') %>
-  <div class="wrapper">
-    <% if (usuario) { %>
-      <%- include('sidebar') %>
-    <% } %>
-    <main class="main-content conteudo <%= usuario ? 'conteudo-logado' : 'conteudo-publico' %>">
+  <main class="main-content conteudo">

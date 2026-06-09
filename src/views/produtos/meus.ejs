@@ -2,7 +2,7 @@
 <section class="produtos">
   <div class="produtos-topo">
     <h1>Meus produtos</h1>
-    <a class="botao" href="/produtos/novo">+ Novo produto</a>
+    <a class="btn-agro" href="/produtos/novo">+ Novo produto</a>
   </div>
 
   <% if (produtos.length === 0) { %>
@@ -28,7 +28,7 @@
                 <% if (p.imagemUrl) { %>
                   <img class="produto-miniatura" src="<%= p.imagemUrl %>" alt="<%= p.nome %>">
                 <% } else { %>
-                  <span class="produto-miniatura produto-miniatura--vazia">🥬</span>
+                  <img class="produto-miniatura" src="/img/produto-default.svg" alt="Imagem padrao do produto">
                 <% } %>
               </td>
               <td><%= Number(p.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></td>

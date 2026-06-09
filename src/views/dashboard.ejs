@@ -5,25 +5,8 @@
     ? `Sua vitrine tem ${meusProdutos} produto${meusProdutos === 1 ? '' : 's'}, com ${meusDisponiveis} disponíve${meusDisponiveis === 1 ? 'l' : 'is'} para consulta.`
     : `Encontre produtos disponíveis de ${totalProdutores} produtor${totalProdutores === 1 ? '' : 'es'} da agricultura familiar.`;
   const temDadosGrafico = produtosPorMes.some((item) => item.total > 0);
-  const classeStatusPedido = (status) => {
-    if (status === 'em_preparacao') return 'badge-preparacao';
-    if (status === 'a_caminho') return 'badge-caminho';
-    if (status === 'entregue') return 'badge-entregue';
-    if (status === 'concluido') return 'badge-concluido';
-    if (status === 'cancelado') return 'badge-cancelado';
-    if (status === 'reportado') return 'badge-reportado';
-    return 'badge-pendente';
-  };
-  const labelStatusPedido = (status) => ({
-    pendente: 'Pendente',
-    em_preparacao: 'Em preparacao',
-    a_caminho: 'A caminho',
-    entregue: 'Entregue',
-    concluido: 'Concluido',
-    cancelado: 'Cancelado',
-    reportado: 'Reportado',
-  }[status] || 'Pendente');
 %>
+<%- include('partials/status-helpers') %>
 
 <section class="dashboard-hero">
   <div>
@@ -234,7 +217,7 @@
               </td>
               <td class="d-none d-md-table-cell"><%= pedido.comprador ? pedido.comprador.nome : '-' %></td>
               <td><%= pedido.quantidade %></td>
-              <td><span class="badge-status <%= classeStatusPedido(pedido.status) %>"><%= labelStatusPedido(pedido.status) %></span></td>
+              <td><span class="badge-status <%= globalThis.agroStatusHelpers.classeStatusPedido(pedido.status) %>"><%= globalThis.agroStatusHelpers.labelStatusPedido(pedido.status) %></span></td>
               <td class="d-none d-lg-table-cell"><%= pedido.createdAt ? pedido.createdAt.toLocaleDateString('pt-BR') : '-' %></td>
             </tr>
           <% }) %>
@@ -299,7 +282,7 @@
               <% if (produto.imagemUrl) { %>
                 <img class="produto-destaque-card__img mb-2" src="<%= produto.imagemUrl %>" alt="<%= produto.nome %>">
               <% } else { %>
-                <div class="card-icone mb-2">🥬</div>
+                <img class="produto-destaque-card__img mb-2" src="/img/produto-default.svg" alt="Imagem padrao do produto">
               <% } %>
               <h6 class="mb-1"><%= produto.nome %></h6>
               <small>Por: <%= produto.dono ? produto.dono.nome : 'Produtor desconhecido' %></small>
