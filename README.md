@@ -63,6 +63,22 @@ Plataforma web para venda direta entre produtores da agricultura familiar e cons
 
 O arquivo `database.sqlite` e criado automaticamente na primeira execucao.
 
+## Instalacao a partir do repositorio
+
+Clone o repositorio e execute os passos de instalacao:
+
+```bash
+git clone https://github.com/mlucasoliv/Agricultura-Familiar.git
+cd Agricultura-Familiar
+npm install
+cp .env.example .env
+npm start
+```
+
+Depois edite o `.env` e defina um `JWT_SECRET` proprio antes de usar em um ambiente real.
+
+O banco SQLite e os uploads de imagens sao locais. Portanto, cada instalacao comeca com o banco vazio e sem uploads anteriores.
+
 ## Estrutura principal
 
 ```text
